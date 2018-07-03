@@ -1,14 +1,14 @@
 package com.arpico.groupit.usermanagement.dto;
 
 public class UserTokenDto {
-	private Integer userId;
+	private String userId;
 	private String userCode;
 	private String userFullName;
 	
-	public Integer getUserId() {
+	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(Integer userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	public String getUserCode() {

@@ -21,7 +21,7 @@ public class JwtValidator {
 		
 		userTokenDto=new UserTokenDto();
 		userTokenDto.setUserCode(claims.getSubject());
-		userTokenDto.setUserId(Integer.parseInt((String) claims.get("loginId")));
+		userTokenDto.setUserId((String) claims.get("loginId"));
 		userTokenDto.setUserFullName((String) claims.get("password"));
 		}catch (Exception e) {
 			System.out.println(e);

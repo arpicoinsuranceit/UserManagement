@@ -1,16 +1,18 @@
 package com.arpico.groupit.usermanagement.dto;
 
+import com.arpico.groupit.usermanagement.util.AppConstant;
+
 public class LoginResponseDto {
 
-	private boolean isLogin;
-	private boolean isInactive;
-	private boolean isFail;
-	private boolean isLock;
-	private boolean isExpired;
-	private boolean isNeedChange;
+	private boolean isLogin = AppConstant.FALSE;
+	private boolean isInactive = AppConstant.FALSE;
+	private boolean isFail = AppConstant.FALSE;
+	private boolean isLock = AppConstant.FALSE;
+	private boolean isExpired = AppConstant.FALSE;
+	private boolean isNeedChange = AppConstant.FALSE;
 	
-	private String jwtToken;
-	private Integer failCount;
+	private String jwtToken = AppConstant.NO_VALUE;
+	private Integer failCount = AppConstant.ZERO;
 	
 	public boolean isLogin() {
 		return isLogin;

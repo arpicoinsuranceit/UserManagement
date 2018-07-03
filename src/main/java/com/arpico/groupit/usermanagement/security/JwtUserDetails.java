@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class JwtUserDetails implements UserDetails {
 
-	private Integer userId;
+	private String userId;
     private String userName;
     private String fullName;
 	
@@ -15,7 +15,7 @@ public class JwtUserDetails implements UserDetails {
 	}
 	
 	
-	public JwtUserDetails(String userName,String fullName,Integer userId) {
+	public JwtUserDetails(String userName,String fullName,String userId) {
 		this.userName=userName;
 		this.fullName=fullName;
 		this.userId=userId;
@@ -52,7 +52,7 @@ public class JwtUserDetails implements UserDetails {
 		return true;
 	}
 	
-	public Integer getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
