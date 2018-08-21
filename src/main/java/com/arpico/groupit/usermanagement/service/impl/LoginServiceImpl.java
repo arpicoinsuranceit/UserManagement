@@ -23,12 +23,16 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public LoginResponseDto isUser(String userName, String password) throws Exception {
 
+		System.out.println(userName);
+		System.out.println(password);
+		
 		LoginResponseDto responseDto = new LoginResponseDto();
 
 		//Login login = loginDao.findOneByUserNameAndPassword(userName, EncryptData.encrypt(password));
 		
 		SysUser sysUser = sysUserDao.findOneByUserName(userName);
 
+		
 		if (sysUser != null ) {
 			if(sysUser.getUserPassword().equals(EncryptData.encrypt(password))) {
 				/*if (SysUser.equals(0)) {
