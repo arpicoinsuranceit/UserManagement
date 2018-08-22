@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.arpico.groupit.usermanagement.dao.SysUserDao;
 import com.arpico.groupit.usermanagement.dto.MenuDto;
-import com.arpico.groupit.usermanagement.model.Menu;
-import com.arpico.groupit.usermanagement.model.SubSbuSysUser;
-import com.arpico.groupit.usermanagement.model.SubSbuSysUserMenu;
-import com.arpico.groupit.usermanagement.model.SysUser;
+import com.arpico.groupit.usermanagement.model.MenuModel;
+import com.arpico.groupit.usermanagement.model.SubSbuSysUserModel;
+import com.arpico.groupit.usermanagement.model.SubSbuSysUserMenuModel;
+import com.arpico.groupit.usermanagement.model.SysUserModel;
 import com.arpico.groupit.usermanagement.security.JwtDecoder;
 import com.arpico.groupit.usermanagement.service.SysUserService;
 
@@ -28,16 +28,16 @@ public class SysUserSeviceImpl implements SysUserService {
 	@Override
 	public List<MenuDto> getAllByUser(String referance) throws Exception {
 		String userId = new JwtDecoder().generate(referance);
-		SysUser sysUser = sysUserDao.findOne(userId);
+		SysUserModel sysUser = sysUserDao.findOne(userId);
 		
 		List<HashMap<String, Object>> menuMap = new ArrayList<>();
 		
-		List<Menu> menus = new ArrayList<>();
+		List<MenuModel> menus = new ArrayList<>();
 		
 		if(sysUser != null) {
-			for (SubSbuSysUser sbuSysUser : sysUser.getSbuSysUsers()) {
+			for (SubSbuSysUserModel sbuSysUser : sysUser.getSbuSysUsers()) {
 				if(sbuSysUser.getSubSbu().getSubSbuId().equals("")) {
-					for (SubSbuSysUserMenu sbuSysUserMenu : sbuSysUser.getSubSbuSysUserMenus()) {
+					for (SubSbuSysUserMenuModel sbuSysUserMenu : sbuSysUser.getSubSbuSysUserMenus()) {
 						menus.add(sbuSysUserMenu.getMenu());
 					}
 				}
@@ -47,7 +47,7 @@ public class SysUserSeviceImpl implements SysUserService {
 		
 		
 		
-		for (Menu menuModel1 : menus) {
+		for (MenuModel menuModel1 : menus) {
 			if(menuModel1.getParent().equals("0")) {
 				HashMap<String, Object> menuLvl1 = new HashMap<>();
 				menuLvl1.put("name", menuModel1.getMenuName());
@@ -60,7 +60,7 @@ public class SysUserSeviceImpl implements SysUserService {
 				
 				
 				
-				for (Menu menuModel2 : menus) {
+				for (MenuModel menuModel2 : menus) {
 					if(menuModel2.getParent().equals(menuModel1.getMenuId())) {
 						isChildAvailableLvl1 = true;
 						HashMap<String, Object> menuLvl2 = new HashMap<>();
@@ -72,7 +72,7 @@ public class SysUserSeviceImpl implements SysUserService {
 						boolean isChildAvailableLvl2 = false;
 						List<HashMap<String, Object>> childMapLvl2 = new ArrayList<>();
 						
-						for (Menu menuModel3 : menus) {
+						for (MenuModel menuModel3 : menus) {
 							if(menuModel3.getParent().equals(menuModel2.getMenuId())) {
 								isChildAvailableLvl2 = true;
 							}

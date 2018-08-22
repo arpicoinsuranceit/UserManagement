@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.arpico.groupit.usermanagement.dto.LoginResponseDto;
-import com.arpico.groupit.usermanagement.model.SysUser;
+import com.arpico.groupit.usermanagement.model.SysUserModel;
 import com.arpico.groupit.usermanagement.service.LoginService;
 
 
@@ -39,7 +39,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/testAll", method = RequestMethod.GET)
-	public List<SysUser> getAll() throws Exception {
+	public List<SysUserModel> getAll() throws Exception {
 		
 		return loginService.getAll();
 		//return null;

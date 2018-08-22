@@ -1,9 +1,9 @@
 package com.arpico.groupit.usermanagement.dao;
 
 import org.springframework.data.repository.CrudRepository;
-import com.arpico.groupit.usermanagement.model.SysUser;
+import com.arpico.groupit.usermanagement.model.SysUserModel;
 
-public interface SysUserDao extends CrudRepository<SysUser, String>{
-	SysUser findOneByUserNameAndUserPassword(String userName, String password) throws Exception;
-	SysUser findOneByUserName(String userName) throws Exception;
+public interface SysUserDao extends CrudRepository<SysUserModel, String>{
+	//SysUserModel findOneByUserNameAndUserPassword(String userName, String password) throws Exception;
+	SysUserModel findOneByUserNameAndIsEnabeled (String userName, Integer isEnabeled) throws Exception;
 }
