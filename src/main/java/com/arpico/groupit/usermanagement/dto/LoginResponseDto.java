@@ -16,6 +16,8 @@ public class LoginResponseDto {
 	private String jwtToken = AppConstant.NO_VALUE;
 	private Integer failCount = AppConstant.ZERO;
 	private List<MenuDto> menuDtos;
+	
+	
 
 	public boolean isLogin() {
 		return isLogin;

@@ -25,6 +25,11 @@ public class LoginController {
 	public LoginResponseDto login(@RequestParam("userName") String userName,
 			@RequestParam("password") String password) throws Exception {
 		
+		System.out.println("called");
+		System.out.println(userName);
+		System.out.println(password);
+		
+		
 		return loginService.isUser(userName, password);
 		//return null;
 	}

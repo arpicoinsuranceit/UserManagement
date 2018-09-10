@@ -96,4 +96,5 @@
         	<artifactId>spring-security-jwt</artifactId>
         </dependency> 
 	</dependencies>
+	<packaging>war</packaging>
 </project>

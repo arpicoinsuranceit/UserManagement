@@ -115,6 +115,8 @@ public class LoginServiceImpl implements LoginService {
 								dto.setHref(f.getMenu().getHref());
 								dto.setMenuDescription(f.getMenu().getMenuDescription());
 								dto.setMenuName(f.getMenu().getMenuName());
+								dto.setLevel(f.getMenu().getLevel());
+								dto.setParent(f.getMenu().getParent());
 								menuDtos.add(dto);
 							}
 
