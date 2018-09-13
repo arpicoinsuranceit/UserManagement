@@ -7,7 +7,7 @@ import com.arpico.groupit.usermanagement.model.SysUserModel;
 
 public interface LoginService {
 
-	public LoginResponseDto isUser(String userName, String password) throws Exception;
+	public LoginResponseDto isUser(String userName, String password, String subSbu) throws Exception;
 
 	public LoginResponseDto changePassword(String userName, String password, String newPassword,
 			String confirmNewPassword) throws Exception;

@@ -14,6 +14,7 @@ public class LoginResponseDto {
 	private boolean isNeedChange = AppConstant.FALSE;
 
 	private String jwtToken = AppConstant.NO_VALUE;
+	private String userName = AppConstant.NO_VALUE;
 	private Integer failCount = AppConstant.ZERO;
 	private List<MenuDto> menuDtos;
 	
@@ -83,6 +84,14 @@ public class LoginResponseDto {
 		this.failCount = failCount;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	public List<MenuDto> getMenuDtos() {
 		return menuDtos;
 	}
@@ -95,7 +104,9 @@ public class LoginResponseDto {
 	public String toString() {
 		return "LoginResponseDto [isLogin=" + isLogin + ", isInactive=" + isInactive + ", isFail=" + isFail
 				+ ", isLock=" + isLock + ", isExpired=" + isExpired + ", isNeedChange=" + isNeedChange + ", jwtToken="
-				+ jwtToken + ", failCount=" + failCount + ", menuDtos=" + menuDtos + "]";
+				+ jwtToken + ", userName=" + userName + ", failCount=" + failCount + ", menuDtos=" + menuDtos + "]";
 	}
+
+	
 
 }

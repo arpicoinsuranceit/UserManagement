@@ -38,7 +38,7 @@ public class LoginServiceImpl implements LoginService {
 	private SubSbuDao subSbuDao;
 
 	@Override
-	public LoginResponseDto isUser(String userName, String password) throws Exception {
+	public LoginResponseDto isUser(String userName, String password, String subSbu) throws Exception {
 
 		System.out.println(userName);
 		System.out.println(password);
@@ -93,10 +93,11 @@ public class LoginServiceImpl implements LoginService {
 				JwtGenerator generator = new JwtGenerator();
 				responseDto.setJwtToken(generator.generate(userTokenDto));
 				responseDto.setLogin(true);
+				responseDto.setUserName(sysUser.getUserFirstName());
 
 				List<MenuDto> menuDtos = new ArrayList<>();
 
-				SubSbuModel subSbuModel = subSbuDao.findOne("1");
+				SubSbuModel subSbuModel = subSbuDao.findOne(subSbu);
 				
 				sysUser.getSbuSysUsers().forEach(e -> {
 
@@ -112,11 +113,14 @@ public class LoginServiceImpl implements LoginService {
 							
 							if (f.getIsEnabled().equals(1) && f.getMenu().getIsEnabled().equals(1)) {
 								MenuDto dto = new MenuDto();
+								dto.setMenuId(f.getMenu().getMenuId());
 								dto.setHref(f.getMenu().getHref());
 								dto.setMenuDescription(f.getMenu().getMenuDescription());
 								dto.setMenuName(f.getMenu().getMenuName());
 								dto.setLevel(f.getMenu().getLevel());
 								dto.setParent(f.getMenu().getParent());
+								dto.setIcon(f.getMenu().getIcon());
+								
 								menuDtos.add(dto);
 							}
 

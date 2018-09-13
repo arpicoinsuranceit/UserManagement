@@ -23,14 +23,14 @@ public class LoginController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public LoginResponseDto login(@RequestParam("userName") String userName,
-			@RequestParam("password") String password) throws Exception {
+			@RequestParam("password") String password, @RequestParam ("subSbu") String subSbu) throws Exception {
 		
 		System.out.println("called");
 		System.out.println(userName);
 		System.out.println(password);
 		
 		
-		return loginService.isUser(userName, password);
+		return loginService.isUser(userName, password, subSbu);
 		//return null;
 	}
 	
