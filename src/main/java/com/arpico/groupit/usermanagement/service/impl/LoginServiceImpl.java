@@ -45,8 +45,6 @@ public class LoginServiceImpl implements LoginService {
 
 		LoginResponseDto responseDto = new LoginResponseDto();
 
-		// Login login = loginDao.findOneByUserNameAndPassword(userName,
-		// EncryptData.encrypt(password));
 
 		SysUserModel sysUser = sysUserDao.findOneByUserNameAndIsEnabeled(userName, 1);
 
@@ -58,8 +56,7 @@ public class LoginServiceImpl implements LoginService {
 					responseDto.setLock(true);
 				}
 
-				// responseDto.setLock(false);
-
+				
 				LocalDateTime date = LocalDateTime.now();
 				LocalDateTime updateTime = LocalDateTime
 						.ofInstant(sysUser.getLoginModel().getLastModified().toInstant(), ZoneId.systemDefault());
@@ -105,8 +102,6 @@ public class LoginServiceImpl implements LoginService {
 					
 					if (e.getSubSbu().equals(subSbuModel)) {
 						
-						e.getSubSbuSysUserMenus().forEach(System.out::println);
-						
 						e.getSubSbuSysUserMenus().forEach(f -> {
 							
 							
@@ -120,7 +115,7 @@ public class LoginServiceImpl implements LoginService {
 								dto.setLevel(f.getMenu().getLevel());
 								dto.setParent(f.getMenu().getParent());
 								dto.setIcon(f.getMenu().getIcon());
-								
+								dto.setSubMenuBr(f.getMenu().getSubMenuBr());
 								menuDtos.add(dto);
 							}
 

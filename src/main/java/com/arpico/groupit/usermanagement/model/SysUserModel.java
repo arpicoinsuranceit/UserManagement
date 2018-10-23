@@ -77,6 +77,7 @@ public class SysUserModel implements Serializable{
 	
 	
 	private List<SubSbuSysUserModel> sbuSysUsers;
+	private List<SysUserRoleModel> sysUserRoleModels;
 	
 	private LoginModel loginModel;
 	
@@ -217,6 +218,15 @@ public class SysUserModel implements Serializable{
 	public void setLoginModel(LoginModel loginModel) {
 		this.loginModel = loginModel;
 	}
+	
+	@OneToOne(mappedBy = "sysUserModel", targetEntity = SysUserRoleModel.class)
+	public List<SysUserRoleModel> getSysUserRoleModels() {
+		return sysUserRoleModels;
+	}
+	public void setSysUserRoleModels(List<SysUserRoleModel> sysUserRoleModels) {
+		this.sysUserRoleModels = sysUserRoleModels;
+	}
+	
 	@Override
 	public String toString() {
 		return "SysUser [userId=" + userId + ", userSalutation=" + userSalutation + ", userFirstName=" + userFirstName

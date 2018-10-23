@@ -17,21 +17,21 @@ import com.arpico.groupit.usermanagement.service.LoginService;
 @RestController
 @CrossOrigin(origins = "*")
 public class LoginController {
+	
+	
 
 	@Autowired
 	private LoginService loginService;
 	
+	
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public LoginResponseDto login(@RequestParam("userName") String userName,
 			@RequestParam("password") String password, @RequestParam ("subSbu") String subSbu) throws Exception {
-		
 		System.out.println("called");
-		System.out.println(userName);
-		System.out.println(password);
-		
 		
 		return loginService.isUser(userName, password, subSbu);
-		//return null;
+
 	}
 	
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)

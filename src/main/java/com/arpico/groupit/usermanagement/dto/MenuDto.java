@@ -8,6 +8,8 @@ public class MenuDto {
 	private String parent;
 	private Integer level;
 	private String icon;
+	private Integer subMenuBr;
+	private String system;
 
 	public String getMenuId() {
 		return menuId;
@@ -65,10 +67,20 @@ public class MenuDto {
 		this.icon = icon;
 	}
 
-	@Override
-	public String toString() {
-		return "MenuDto [menuId=" + menuId + ", menuName=" + menuName + ", menuDescription=" + menuDescription
-				+ ", href=" + href + ", parent=" + parent + ", level=" + level + ", icon=" + icon + "]";
+	public Integer getSubMenuBr() {
+		return subMenuBr;
+	}
+
+	public void setSubMenuBr(Integer subMenuBr) {
+		this.subMenuBr = subMenuBr;
+	}
+
+	public String getSystem() {
+		return system;
+	}
+
+	public void setSystem(String system) {
+		this.system = system;
 	}
 
 }
