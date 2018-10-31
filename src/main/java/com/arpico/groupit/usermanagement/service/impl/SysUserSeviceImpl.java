@@ -199,14 +199,25 @@ public class SysUserSeviceImpl implements SysUserService {
 		
 		subSbuModels.forEach(subSbuModel -> {
 			sysUserModels.forEach(sysUser -> {
-				subSbuSysUserModels.add(getSubSbuSysUser(subSbuModel,sysUser));
+				
+				SubSbuSysUserModel sbuSysUserModel = subSbuSysUserDao.findOneBySubSbuAndSysUser(subSbuModel, sysUser);
+				
+				if(sbuSysUserModel == null) {
+					subSbuSysUserModels.add(getSubSbuSysUser(subSbuModel,sysUser));
+				}
+				
 			});
 		});
 		
 		
 		subSbuSysUserModels.forEach(subSbuSysUserModel-> {
 			menus.forEach(menu-> {
-				subSbuSysUserMenuModels.add(getSunSbuSysUserMenuModel(subSbuSysUserModel,menu ));
+				SubSbuSysUserMenuModel sbuSysUserMenuModel = subSbuSysUserMenuDao.findOneBySubSbuSysUserAndMenu(subSbuSysUserModel,menu);
+				
+				if(sbuSysUserMenuModel == null) {
+					subSbuSysUserMenuModels.add(getSunSbuSysUserMenuModel(subSbuSysUserModel,menu));
+				}
+				
 			});
 		});
 

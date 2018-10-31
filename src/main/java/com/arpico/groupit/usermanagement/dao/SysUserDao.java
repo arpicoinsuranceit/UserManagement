@@ -12,4 +12,8 @@ public interface SysUserDao extends CrudRepository<SysUserModel, String>{
 	List<SysUserModel> findAllByIsEnabeled(Integer isEnabeled) throws Exception;
 
 	List<SysUserModel> findAllByIsEnabeledAndUserFirstNameContaining(Integer isEnabeled, String firstName) throws Exception;
+
+	SysUserModel findByUserCode(String userName) throws Exception;
+
+	SysUserModel findOneByUserCode(String userName);
 }

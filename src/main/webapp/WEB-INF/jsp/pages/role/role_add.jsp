@@ -183,6 +183,7 @@
 		</div>
 
 		<jsp:include page="../../core/footer.jsp"></jsp:include>
+		<jsp:include page="../../core/SuccessAdd.jsp"></jsp:include>
 
 
 		<script src="${path}/bower_components/jquery/dist/jquery.min.js"></script>
@@ -330,7 +331,15 @@
 	                data: jsonString,
 	                contentType: "application/json",
 	                success: function (resp) {
-	                    console.log(resp);
+	                    if(resp == "Work"){
+	                    	$("#modal-success").modal("show");
+	                    }else{
+	                    	alert("Error");
+	                    }
+	                    
+	                    $("#tbody_menu_select tr").remove();
+	                    $("#tbody_menu_add tr").remove();
+	                   	$("#form_add_role .form-control").val("");	                    
 	                },
 	                error: function () {
 	                    alert('Error');
