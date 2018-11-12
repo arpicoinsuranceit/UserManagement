@@ -146,7 +146,7 @@
 		</div>
 
 		<jsp:include page="../../core/footer.jsp"></jsp:include>
-
+		<jsp:include page="../../core/SuccessAdd.jsp"></jsp:include>
 
 		<script src="${path}/bower_components/jquery/dist/jquery.min.js"></script>
 		<script
@@ -284,6 +284,7 @@
 		                contentType: "application/json",
 		                success: function (resp) {
 		                    console.log(resp);
+		                    $("#modal-success").modal("show");
 		                },
 		                error: function () {
 		                    alert('Error');
@@ -299,7 +300,7 @@
 				});
 			});
 			
-			$("#button-addRole").click (function () {
+			/* $("#button-addRole").click (function () {
 				var data = "{";
 	            $("#form_add_role .form-control").each(function () {
 	                data += "\"" + $(this).attr("name") + "\" : \"" + $(this).val() + "\",";
@@ -325,7 +326,7 @@
 	                    alert('Error');
 	                }
 	            });
-			});
+			}); */
 		</script>
 </body>
 </html>

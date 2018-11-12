@@ -130,6 +130,10 @@ public class LoginServiceImpl implements LoginService {
 
 				LoginModel loginModel = sysUser.getLoginModel();
 				loginModel.setFailCount(loginModel.getFailCount() + 1);
+				
+				if(loginModel.getFailCount() >= 3) {
+					loginModel.setLocked(1);
+				}
 
 				loginDao.save(loginModel);
 			}
