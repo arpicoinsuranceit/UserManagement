@@ -19,6 +19,7 @@ import com.arpico.groupit.usermanagement.dto.MenuDto;
 import com.arpico.groupit.usermanagement.dto.UserTokenDto;
 import com.arpico.groupit.usermanagement.model.LoginModel;
 import com.arpico.groupit.usermanagement.model.SubSbuModel;
+import com.arpico.groupit.usermanagement.model.SysUserBranchModel;
 import com.arpico.groupit.usermanagement.model.SysUserModel;
 import com.arpico.groupit.usermanagement.security.EncryptData;
 import com.arpico.groupit.usermanagement.security.JwtGenerator;
@@ -81,6 +82,14 @@ public class LoginServiceImpl implements LoginService {
 				userTokenDto.setUserCode(sysUser.getUserCode());
 				userTokenDto.setUserFullName(sysUser.getUserFirstName() + " " + sysUser.getUserLastName());
 				userTokenDto.setUserId(sysUser.getUserId());
+				
+				for (SysUserBranchModel e : sysUser.getSysUserBranchModels()) {
+				
+					if(e.getBranch().getPhysical().equalsIgnoreCase("1")) {
+						userTokenDto.setLocCode((e.getBranch().getCode()));
+					}
+				}
+				
 
 				LoginModel loginModel = sysUser.getLoginModel();
 				loginModel.setFailCount(0);

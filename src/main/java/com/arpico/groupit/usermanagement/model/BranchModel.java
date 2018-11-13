@@ -32,6 +32,8 @@ public class BranchModel {
 	private String email;
 	@Column(name = "BRANCH_FAX")
 	private String fax;
+	@Column(name = "IS_PHYSICAL")
+	private String physical;
 	@Column(name = "CREATE_BY")
 	private String createBy;
 	@Column(name = "CREATE_DATE")
@@ -107,6 +109,14 @@ public class BranchModel {
 
 	public void setFax(String fax) {
 		this.fax = fax;
+	}
+
+	public String getPhysical() {
+		return physical;
+	}
+
+	public void setPhysical(String physical) {
+		this.physical = physical;
 	}
 
 	public String getCreateBy() {

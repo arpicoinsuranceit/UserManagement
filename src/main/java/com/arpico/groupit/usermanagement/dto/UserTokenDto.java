@@ -4,28 +4,43 @@ public class UserTokenDto {
 	private String userId;
 	private String userCode;
 	private String userFullName;
-	
+	private String locCode;
 	public String getUserId() {
 		return userId;
 	}
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
 	public String getUserCode() {
 		return userCode;
 	}
+
 	public void setUserCode(String userCode) {
 		this.userCode = userCode;
 	}
+
 	public String getUserFullName() {
 		return userFullName;
 	}
+
 	public void setUserFullName(String userFullName) {
 		this.userFullName = userFullName;
 	}
-	
+
+	public String getLocCode() {
+		return locCode;
+	}
+
+	public void setLocCode(String locCode) {
+		this.locCode = locCode;
+	}
+
 	@Override
 	public String toString() {
-		return "UserTokenDto [userId=" + userId + ", userCode=" + userCode + ", userFullName=" + userFullName + "]";
+		return "UserTokenDto [userId=" + userId + ", userCode=" + userCode + ", userFullName=" + userFullName
+				+ ", locCode=" + locCode + "]";
 	}
+
 }
