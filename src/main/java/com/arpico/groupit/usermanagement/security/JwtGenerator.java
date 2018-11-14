@@ -22,6 +22,7 @@ public class JwtGenerator {
 		claims.put("userId", userTokenDto.getUserId());
 		claims.put("fullName", userTokenDto.getUserFullName());
 		claims.put("userCode", userTokenDto.getUserCode());
+		claims.put("locCode", userTokenDto.getLocCode());
 				
 		return Jwts.builder().setClaims(claims)
 				.signWith(SignatureAlgorithm.HS512, AppConstant.SECRET_KEY)

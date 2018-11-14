@@ -85,6 +85,7 @@ public class LoginServiceImpl implements LoginService {
 				
 				for (SysUserBranchModel e : sysUser.getSysUserBranchModels()) {
 				
+					System.out.println(e.getBranch().getName() + "          " +e.getBranch().getPhysical() );
 					if(e.getBranch().getPhysical().equalsIgnoreCase("1")) {
 						userTokenDto.setLocCode((e.getBranch().getCode()));
 					}
@@ -96,6 +97,8 @@ public class LoginServiceImpl implements LoginService {
 
 				loginDao.save(loginModel);
 
+				System.out.println(userTokenDto.toString());
+				
 				JwtGenerator generator = new JwtGenerator();
 				responseDto.setJwtToken(generator.generate(userTokenDto));
 				responseDto.setLogin(true);
