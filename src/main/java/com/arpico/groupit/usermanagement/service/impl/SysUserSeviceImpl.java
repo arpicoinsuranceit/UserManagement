@@ -183,6 +183,8 @@ public class SysUserSeviceImpl implements SysUserService {
 				}
 				
 				boolean isAvailableSubSbu = false;
+				
+				System.out.println("subSbuModels.size() : " + subSbuModels.size());
 
 				for (SubSbuModel subSbu : subSbuModels) {
 					if (roleMenu.getMenuModel().getSubSbuModel().getSubSbuId().equals(subSbu.getSubSbuId())) {
@@ -204,6 +206,8 @@ public class SysUserSeviceImpl implements SysUserService {
 				
 				if(sbuSysUserModel == null) {
 					subSbuSysUserModels.add(getSubSbuSysUser(subSbuModel,sysUser));
+				}else {
+					subSbuSysUserModels.add(sbuSysUserModel);
 				}
 				
 			});

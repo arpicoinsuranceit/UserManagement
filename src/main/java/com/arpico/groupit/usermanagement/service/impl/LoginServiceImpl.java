@@ -48,6 +48,8 @@ public class LoginServiceImpl implements LoginService {
 
 
 		SysUserModel sysUser = sysUserDao.findOneByUserNameAndIsEnabeled(userName, 1);
+		
+		System.out.println(sysUser.getUserId() + " sysUser.getUserId()");
 
 		if (sysUser != null) {
 			if (sysUser.getLoginModel().getPassword().equals(EncryptData.encrypt(password))) {
