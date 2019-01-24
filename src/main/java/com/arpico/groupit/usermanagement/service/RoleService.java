@@ -11,4 +11,8 @@ public interface RoleService {
 	public List<RoleDto> getAll() throws Exception;
 
 	public List<RoleDto> getAll(String val)  throws Exception;
+	
+	RoleDto getSelectedRole(String id)throws Exception;
+	
+	public String edit(RoleDto roleDto) throws Exception;
 }

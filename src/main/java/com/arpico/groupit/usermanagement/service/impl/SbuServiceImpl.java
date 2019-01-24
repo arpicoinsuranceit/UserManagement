@@ -21,6 +21,7 @@ public class SbuServiceImpl implements SbuService{
 	
 	@Override
 	public List<SbuDto> getAll() throws Exception {
+		
 		List<SbuModel> models = sbuDao.findAllByIsEnabled(1);
 		
 		List<SbuDto> dtos = new ArrayList<>();

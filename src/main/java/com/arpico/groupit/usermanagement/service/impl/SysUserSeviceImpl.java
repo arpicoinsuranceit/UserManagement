@@ -12,21 +12,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.arpico.groupit.usermanagement.dao.RoleDao;
+import com.arpico.groupit.usermanagement.dao.RoleMenuDao;
 import com.arpico.groupit.usermanagement.dao.SubSbuSysUserDao;
 import com.arpico.groupit.usermanagement.dao.SubSbuSysUserMenuDao;
 import com.arpico.groupit.usermanagement.dao.SysUserDao;
+import com.arpico.groupit.usermanagement.dao.SysUserRoleDao;
 import com.arpico.groupit.usermanagement.dto.MenuDto;
+import com.arpico.groupit.usermanagement.dto.RoleDto;
+import com.arpico.groupit.usermanagement.dto.SysUserDto;
 import com.arpico.groupit.usermanagement.dto.UserAssignDto;
 import com.arpico.groupit.usermanagement.dto.UserTokenDto;
 import com.arpico.groupit.usermanagement.model.MenuModel;
+import com.arpico.groupit.usermanagement.model.RoleMenuModel;
 import com.arpico.groupit.usermanagement.model.RoleModel;
 import com.arpico.groupit.usermanagement.model.SubSbuModel;
 import com.arpico.groupit.usermanagement.model.SubSbuSysUserModel;
 import com.arpico.groupit.usermanagement.model.SubSbuSysUserMenuModel;
 import com.arpico.groupit.usermanagement.model.SysUserModel;
+import com.arpico.groupit.usermanagement.model.SysUserRoleModel;
 import com.arpico.groupit.usermanagement.security.JwtDecoder;
 import com.arpico.groupit.usermanagement.service.SysUserService;
 import com.arpico.groupit.usermanagement.util.AppConstant;
+
 
 @Service
 @Transactional
@@ -43,6 +50,12 @@ public class SysUserSeviceImpl implements SysUserService {
 	
 	@Autowired
 	private SubSbuSysUserMenuDao subSbuSysUserMenuDao;
+	
+	@Autowired
+	private RoleMenuDao RoleMenuDao;
+	
+	@Autowired
+	private SysUserRoleDao sysUserRoleDao;
 	
 	@Override
 	public List<MenuDto> getAllByUser(String referance) throws Exception {
@@ -122,6 +135,7 @@ public class SysUserSeviceImpl implements SysUserService {
 
 		if (val.equals("No_Val")) {
 			models = sysUserDao.findAllByIsEnabeled(1);
+			System.out.println(models);
 		} else {
 			models = sysUserDao.findAllByIsEnabeledAndUserFirstNameContaining(1, val);
 		}
@@ -157,6 +171,8 @@ public class SysUserSeviceImpl implements SysUserService {
 		
 		List<SubSbuSysUserModel> subSbuSysUserModels = new ArrayList<>();
 		List<SubSbuSysUserMenuModel> subSbuSysUserMenuModels = new ArrayList<>();
+		
+		SysUserRoleModel sysUserRoleModel=new SysUserRoleModel();
 
 		userAssignDto.getRoles().forEach(e -> {
 			roleModels.add(roleDao.findOne(e));
@@ -165,6 +181,7 @@ public class SysUserSeviceImpl implements SysUserService {
 		
 		userAssignDto.getUsers().forEach(e -> {
 			sysUserModels.add(sysUserDao.findOne(e));
+			
 		});
 
 		roleModels.forEach(role -> {
@@ -216,17 +233,31 @@ public class SysUserSeviceImpl implements SysUserService {
 		
 		subSbuSysUserModels.forEach(subSbuSysUserModel-> {
 			menus.forEach(menu-> {
-				SubSbuSysUserMenuModel sbuSysUserMenuModel = subSbuSysUserMenuDao.findOneBySubSbuSysUserAndMenu(subSbuSysUserModel,menu);
-				
+				System.out.println(subSbuSysUserModel);
+				System.out.println(menu);
+				SubSbuSysUserMenuModel sbuSysUserMenuModel = null;
 				if(sbuSysUserMenuModel == null) {
 					subSbuSysUserMenuModels.add(getSunSbuSysUserMenuModel(subSbuSysUserModel,menu));
 				}
 				
 			});
 		});
-
-		System.out.println(subSbuSysUserModels.size() + " : subSbuSysUserModels.size()");
-		System.out.println(subSbuSysUserMenuModels.size() + " : subSbuSysUserMenuModels.size()");
+		
+		
+		
+		roleModels.forEach(roleModel->{
+		sysUserModels.forEach(sysUser->{
+			sysUserRoleModel.setRoleModel(roleModel);
+			sysUserRoleModel.setSysUserModel(sysUser);
+			sysUserRoleModel.setSysUserRoleId(UUID.randomUUID().toString());
+			sysUserRoleModel.setEnabled(AppConstant.ENABLE);
+			
+			sysUserRoleDao.save(sysUserRoleModel);
+		});
+		});
+			
+		
+		
 		
 		subSbuSysUserDao.save(subSbuSysUserModels);
 		subSbuSysUserMenuDao.save(subSbuSysUserMenuModels);
@@ -254,6 +285,61 @@ public class SysUserSeviceImpl implements SysUserService {
 		model.setCreatedTime(new Date());
 		
 		return model;
+	}
+
+	@Override
+	public RoleDto updateUserRole(String roleId) throws Exception {
+		
+		
+		
+		return null;
+		
+	}
+
+	@Override
+	public String saveSysUser(SysUserDto sysUserDto)  {
+		System.out.println(sysUserDto.getUserEmployeeNo());
+		
+		System.out.println(sysUserDto.getUserPassport());
+		
+		SysUserModel sysUserModel=new SysUserModel();
+		sysUserModel.setUserId(UUID.randomUUID().toString());
+		sysUserModel.setUserFirstName(sysUserDto.getUserFirstName());
+		sysUserModel.setUserLastName(sysUserDto.getUserLastName());
+		sysUserModel.setUserAddress1(sysUserDto.getUserAddress1());
+		sysUserModel.setUserAddress2(sysUserDto.getUserAddress2());
+		sysUserModel.setUserAddress3(sysUserDto.getUserAddress3());
+		sysUserModel.setUserEmail(sysUserDto.getUserEmail());
+		sysUserModel.setUserCode(sysUserDto.getUserName());
+		sysUserModel.setUserMobileNumber(sysUserDto.getUserMobileNumber());
+		sysUserModel.setUserTelephoneNumber(sysUserDto.getUserMobileNumber());
+		sysUserModel.setUserName(sysUserDto.getUserName());
+		sysUserModel.setUserNic(sysUserDto.getUserNic());
+		sysUserModel.setUserPassport(sysUserDto.getUserPassport());
+		sysUserModel.setIsEnabeled(AppConstant.ENABLE);
+		sysUserModel.setUserSalutation(sysUserDto.getUserSalutation());
+		sysUserModel.setCreatedTime(new Date());
+		sysUserModel.setUserEmployeeNo(sysUserDto.getUserEmployeeNo());
+		sysUserModel.setCreatedTime(new Date());
+		
+		sysUserDao.save(sysUserModel);
+		
+		return "Work";
+	}
+
+	@Override
+	public String searchUserCode(String usercode) throws Exception {
+		String exsist="";
+		SysUserModel sysUserModel=sysUserDao.findOneByUserCode(usercode);
+		
+		if (sysUserModel==null) {
+			exsist="Fail";
+		}else {
+			exsist="Sucsess";
+		}
+
+
+		return exsist;
 	}
 
 }

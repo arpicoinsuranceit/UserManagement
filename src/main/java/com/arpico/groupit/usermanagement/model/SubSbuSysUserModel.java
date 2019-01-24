@@ -1,6 +1,6 @@
 package com.arpico.groupit.usermanagement.model;
 
-import java.io.Serializable;
+
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="SUB_SBU_SYSUSER")
-public class SubSbuSysUserModel implements Serializable{
+public class SubSbuSysUserModel {
 	
 	@Column(name="SUB_SBU_SYSUSER_ID")
 	private String subSbuSysUserId;
@@ -65,6 +65,7 @@ public class SubSbuSysUserModel implements Serializable{
 	public SysUserModel getSysUser() {
 		return sysUser;
 	}
+	
 	public void setSysUser(SysUserModel sysUser) {
 		this.sysUser = sysUser;
 	}

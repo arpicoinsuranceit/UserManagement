@@ -74,10 +74,12 @@
 					</span>
 				</a>
 					<ul class="treeview-menu">
-						<li><a href="#"><i
+						<li><a href="${path}/sysUser/addUser "><i
 								class="fa fa-circle-o"></i> Add User</a></li>
 						<li><a href="${path}/user/assignroles"><i
 								class="fa fa-circle-o"></i> Assign Roles </a></li>
+								<li><a href="${path}/sysUser/AllUsers"><i
+								class="fa fa-circle-o"></i> All Users </a></li>
 					</ul>
 				</li>
 

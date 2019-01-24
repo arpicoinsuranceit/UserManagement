@@ -126,10 +126,7 @@
 									<!-- /.box -->
 								</div>
 							</div>
-							
-
-
-						</div>
+			</div>
 					</div>
 					<div class="box-footer">
 
@@ -174,7 +171,7 @@
 			function getRoles(val) {
 				
 				if (val == ""){
-					val = "No_Val";
+					val = "1";
 				}
 
 				$.ajax({

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.sound.midi.Soundbank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,16 +20,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.arpico.groupit.usermanagement.dto.MenuDto;
 import com.arpico.groupit.usermanagement.dto.RoleDto;
 import com.arpico.groupit.usermanagement.dto.SbuDto;
+import com.arpico.groupit.usermanagement.dto.SubSbuDto;
 import com.arpico.groupit.usermanagement.service.MenuService;
 import com.arpico.groupit.usermanagement.service.RoleService;
 import com.arpico.groupit.usermanagement.service.SbuService;
 
-@Controller
+@RestController
 @PropertySource("classpath:application.properties")
 @RequestMapping("role")
 public class RoleController {
@@ -66,6 +69,22 @@ public class RoleController {
 		return mav;
 	}
     
+    @RequestMapping("editrole/{id}")
+        public ModelAndView naveditRole (@PathVariable String id) throws Exception {
+    	context.setAttribute("path", path);
+    	List<SbuDto> sbuDtos = sbuService.getAll();
+    	
+    	ModelAndView mav = new ModelAndView("pages/role/edit_role");
+		
+		mav.addObject("title", "ROLE | EDIT ROLE");
+		mav.addObject("sbus", sbuDtos);
+		mav.addObject("id", id);
+		
+		System.out.println(sbuDtos.size());
+		
+		return mav;
+		
+	}
     @RequestMapping("allroles")
 	public ModelAndView navAllRole () throws Exception {
     	context.setAttribute("path", path);
@@ -117,7 +136,7 @@ public class RoleController {
 				entity.add(roleDto.getDescription());
 
 				entity.add("<button type=\"button\" class=\"btn btn-default\" id=\"" + roleDto.getId()
-						+ "\" onclick = \"editError('" + roleDto.getId()
+						+ "\" onclick = \"editRole('" + roleDto.getId()
 						+ "')\" ><i class=\"fa fa-edit\" aria-hidden=\"true\"></i></button>");
 				
 
@@ -139,4 +158,25 @@ public class RoleController {
    		return new ResponseEntity<>(roleDtos, HttpStatus.OK);
    	}
 	
+    @GetMapping(value ="/getRoleID/{id}")
+	public ResponseEntity<Object> getSelectedRole(@PathVariable String id ) throws Exception{
+	
+    	System.out.println(id);
+    	RoleDto role=roleService.getSelectedRole(id);
+    	System.out.println(role);
+    	
+    	return new ResponseEntity<>(role, HttpStatus.OK);
+	}
+    
+    @PostMapping(value = "editRole")
+    public ResponseEntity<Object> editRole(@RequestBody RoleDto roleDto) throws Exception{
+		
+    	System.out.println("controller work");
+    	roleService.edit(roleDto);
+    	
+		return new ResponseEntity<>("Work",HttpStatus.OK);
+	}
+    
+    
+   
 }

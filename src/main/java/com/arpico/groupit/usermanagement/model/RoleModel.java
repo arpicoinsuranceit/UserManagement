@@ -1,39 +1,45 @@
 package com.arpico.groupit.usermanagement.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Null;
 
 @Entity
 @Table(name = "ROLE")
-public class RoleModel {
+public class RoleModel implements Serializable{
 
-	private String id;
-
+	private String rid;
 	private String name;
 	private String description;
-	private Integer enable;
+	private Integer is_enable;
 	private Date createDate;
 	private String createBy;
 	private Date updateDate;
 	private String updateBy;
 
+	@Column(name = "Role_Menus")
 	private List<RoleMenuModel> roleMenuModels;
+	
+	@Column(name = "SysUserRoles")
 	private List<SysUserRoleModel> sysUserRoleModels;
 
 	@Id
 	@Column(name = "ROLE_ID")
 	public String getId() {
-		return id;
+		return rid;
 	}
 
 	public void setId(String id) {
-		this.id = id;
+		this.rid = id;
 	}
 
 	@Column(name = "ROLE_NAME")
@@ -56,11 +62,11 @@ public class RoleModel {
 
 	@Column(name = "IS_ENABLED")
 	public Integer getEnable() {
-		return enable;
+		return is_enable;
 	}
 
 	public void setEnable(Integer enable) {
-		this.enable = enable;
+		this.is_enable = enable;
 	}
 
 	@Column(name = "CREATED_DATE")
@@ -116,5 +122,6 @@ public class RoleModel {
 	public void setSysUserRoleModels(List<SysUserRoleModel> sysUserRoleModels) {
 		this.sysUserRoleModels = sysUserRoleModels;
 	}
+	
 
 }

@@ -9,5 +9,7 @@ import com.arpico.groupit.usermanagement.model.RoleModel;
 public interface RoleDao extends CrudRepository<RoleModel, String>{
 
 	List<RoleModel> findAllByNameContaining(String val) throws Exception;
+	
+	
 
 }

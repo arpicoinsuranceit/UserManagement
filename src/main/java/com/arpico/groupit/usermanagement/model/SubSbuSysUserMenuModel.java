@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.sound.midi.Soundbank;
 
 @Entity
 @Table(name = "SUB_SBU_SYSUSER_MENU")

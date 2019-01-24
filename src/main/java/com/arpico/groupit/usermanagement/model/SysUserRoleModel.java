@@ -1,5 +1,7 @@
 package com.arpico.groupit.usermanagement.model;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,9 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "SYSUSER_ROLE")
-public class SysUserRoleModel {
+public class SysUserRoleModel implements Serializable{
 
 	private String sysUserRoleId;
 	private SysUserModel sysUserModel;
@@ -18,7 +22,6 @@ public class SysUserRoleModel {
 	private Integer enabled;
 
 	@Id
-	@Column(name = "SYS_USER_ROLE_ID")
 	public String getSysUserRoleId() {
 		return sysUserRoleId;
 	}
@@ -27,7 +30,7 @@ public class SysUserRoleModel {
 		this.sysUserRoleId = sysUserRoleId;
 	}
 
-	@JoinColumn(name = "SYS_USER_ID")
+	@JoinColumn(name = "SYSUSER_ID")
 	@ManyToOne(cascade = CascadeType.ALL)
 	public SysUserModel getSysUserModel() {
 		return sysUserModel;
@@ -55,5 +58,12 @@ public class SysUserRoleModel {
 	public void setEnabled(Integer enabled) {
 		this.enabled = enabled;
 	}
+
+	@Override
+	public String toString() {
+		return "SysUserRoleModel [sysUserRoleId=" + sysUserRoleId + ", sysUserModel=" + sysUserModel + ", roleModel="
+				+ roleModel + ", enabled=" + enabled + "]";
+	}
+
 
 }

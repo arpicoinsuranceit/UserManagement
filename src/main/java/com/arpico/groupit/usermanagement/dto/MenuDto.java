@@ -11,6 +11,7 @@ public class MenuDto {
 	private Integer subMenuBr;
 	private String system;
 
+	
 	public String getMenuId() {
 		return menuId;
 	}

@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "SYSUSER")
-public class SysUserModel implements Serializable {
+public class SysUserModel implements Serializable{
 
 	@Column(name = "SYSUSER_ID")
 	private String userId;
@@ -79,7 +79,10 @@ public class SysUserModel implements Serializable {
 	private String updatedBy;
 
 	private List<SubSbuSysUserModel> sbuSysUsers;
+	
+	@Column(name = "SysUserRoles")
 	private List<SysUserRoleModel> sysUserRoleModels;
+	
 	private List<SysUserBranchModel> sysUserBranchModels;
 
 	private LoginModel loginModel;
@@ -263,7 +266,7 @@ public class SysUserModel implements Serializable {
 		this.loginModel = loginModel;
 	}
 
-	@OneToOne(mappedBy = "sysUserModel", targetEntity = SysUserRoleModel.class)
+	@OneToMany(mappedBy = "sysUserModel", targetEntity = SysUserRoleModel.class)	
 	public List<SysUserRoleModel> getSysUserRoleModels() {
 		return sysUserRoleModels;
 	}

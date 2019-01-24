@@ -9,6 +9,7 @@ public class RoleDto {
 	private String name;
 	private String description;
 	private List<String> menus;
+	private List<MenuDto> menuDto;
 
 	public String getId() {
 		return id;
@@ -48,6 +49,16 @@ public class RoleDto {
 
 	public void setMenus(List<String> menus) {
 		this.menus = menus;
+	}
+	
+	
+
+	public List<MenuDto> getMenuDto() {
+		return menuDto;
+	}
+
+	public void setMenuDto(List<MenuDto> menuDto) {
+		this.menuDto = menuDto;
 	}
 
 	@Override

@@ -92,7 +92,7 @@ public class RegionModel {
 		this.modifydate = modifydate;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = ZoneModel.class,cascade = CascadeType.ALL)
 	@JoinColumn(name = "ZONE_ID")
 	public ZoneModel getZone() {
 		return zone;

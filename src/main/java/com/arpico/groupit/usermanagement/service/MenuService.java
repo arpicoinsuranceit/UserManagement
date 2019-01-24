@@ -8,4 +8,6 @@ public interface MenuService {
 	
 	public List<MenuDto> getMenu(String type, String id) throws Exception;
 
+	
+	
 }

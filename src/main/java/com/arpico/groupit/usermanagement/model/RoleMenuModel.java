@@ -1,5 +1,7 @@
 package com.arpico.groupit.usermanagement.model;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ROLE_MENU")
-public class RoleMenuModel {
+public class RoleMenuModel implements Serializable{
 
 	private String id;
 	private RoleModel roleModel;
@@ -55,5 +57,6 @@ public class RoleMenuModel {
 	public void setEnabled(Integer enabled) {
 		this.enabled = enabled;
 	}
+
 
 }

@@ -146,8 +146,9 @@
             $('#modal-danger').modal('show');
         }
 
-        function editSupplier(id) {
-            window.location.replace("${path}/edit_supplier/"+id);
+        function editRole(id) {
+      
+         window.location.replace("${path}/role/editrole/"+id);
         }
 
        
