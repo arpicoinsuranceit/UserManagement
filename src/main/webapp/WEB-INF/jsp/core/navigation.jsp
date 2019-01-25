@@ -80,6 +80,8 @@
 								class="fa fa-circle-o"></i> Assign Roles </a></li>
 								<li><a href="${path}/sysUser/AllUsers"><i
 								class="fa fa-circle-o"></i> All Users </a></li>
+								<li><a href="${path}/branch/navUserAssignBranch"><i
+								class="fa fa-circle-o"></i> Assign Branch </a></li>
 					</ul>
 				</li>
 

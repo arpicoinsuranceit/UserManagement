@@ -10,4 +10,5 @@ public interface BranchDao extends CrudRepository<BranchModel, String>{
 	
 	List<BranchModel> findByPhysical(String physical)throws Exception;
 
+	List<BranchModel> findAllByCode(String code)throws Exception;
 }

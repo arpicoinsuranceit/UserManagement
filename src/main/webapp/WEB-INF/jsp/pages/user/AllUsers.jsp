@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="${path}/dist/css/skins/skin-blue.css">
     <title>${title}</title>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" onload="init()">
 
 <div class="wrapper">
     <jsp:include page="../../core/navigation.jsp"></jsp:include>
@@ -38,7 +38,7 @@
 
             <div class="row">
                 <div class="col-md-3 col-sm-3 col-xs-6">
-                    <a href="${path}/role/addrole">
+                    <a href="${path}/sysUser/addUser">
                         <button type="button" class="btn btn-block btn-success btn-flat">Add New User</button>
                     </a>
                 </div>
@@ -52,25 +52,27 @@
                         </div>
                         <div class="box-body">
 
-                            <table id="table_role" class="table table-bordered">
+                            <table id="table_users" class="table table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>User First Name</th>
-                                    <th>User Email</th>
-                                    <th>User UserCode</th>
-                                    <th>User Employee Number</th>
+                                    <th>First Name</th>
+                                    <th>Email</th>
+                                    <th>UserCode</th>
+                                    <th>Employee Number</th>
                                     <th></th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
+                                
                                 </tbody>
 
                                 <tfoot>
                                 <tr>
-                                	<th>SBU</th>
-                                    <th>Role Name</th>
-                                    <th>Role Description</th>
+                                	<th>User First Name</th>
+                                    <th>User Email</th>
+                                    <th>User UserCode</th>
+                                    <th>User Employee Number</th>
                                     <th></th>
                                 </tr>
                                 </tfoot>
@@ -135,13 +137,37 @@
     <script src="${path}/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <script src="${path}/bower_components/fastclick/lib/fastclick.js"></script>
 
-    <script type="application/javascript">
+    <script type="text/javascript">
     
-    
+    function init() {
+    	/* $.ajax({
+    	 type: 'get',
+    	  url: '${path}/sysUser/getAllUsers',
+    	  success: function (response){
+    		  var c = [];
+    		     $.each(response, function(i, item) {             
+    		         c.push("<tr><td>" + item.userFirstName + "</td>");
+    		         c.push("<td>" + item.userEmail + "</td>");
+    		         c.push("<td>" + item.userName + "</td>");
+    		         c.push("<td>" + item.userEmployeeNo + "</td></tr>");               
+    		     });
+    		     
+    		     $('#table_users').html(c.join(""));
+    	  }
+    	}); */
+    	 var table = $('#table_users').DataTable({
+    	        "pageLength": 10,
+    	        "ajax": "${path}/sysUser/getAllUsers",
+    	        	
+    	    });
+    	     
+    	
+    }
+   
        
         function editRole(id) {
       
-         window.location.replace("${path}/role/editrole/"+id);
+         window.location.replace("${path}/sysUser/usereditnav/"+id);
         }
 
        

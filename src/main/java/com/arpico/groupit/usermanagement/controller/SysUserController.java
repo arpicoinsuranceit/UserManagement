@@ -1,9 +1,13 @@
 package com.arpico.groupit.usermanagement.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.arpico.groupit.usermanagement.dto.MenuDto;
+import com.arpico.groupit.usermanagement.dto.RoleDto;
 import com.arpico.groupit.usermanagement.dto.SbuDto;
 import com.arpico.groupit.usermanagement.dto.SysUserDto;
 import com.arpico.groupit.usermanagement.service.SysUserService;
@@ -83,6 +88,17 @@ public class SysUserController {
 			
 	 }
 	 
+	 @RequestMapping(value = "updatesysuser")
+	 @ResponseBody
+		public ResponseEntity<Object> updateSysUser (@RequestBody SysUserDto sysUserDto) throws Exception {
+	    	System.out.println("Sucsesss");
+	    	
+		 	sysUserService.updateUser(sysUserDto);
+			
+	    	return new ResponseEntity<>("Work",HttpStatus.OK);
+			
+	 }
+	 
 	 @GetMapping("/get_Usercode/{userName}")
 	 @ResponseBody
 	 public String searchUserCode(@PathVariable String userName) throws Exception {
@@ -90,4 +106,61 @@ public class SysUserController {
 	    	return sysUserService.searchUserCode(userName); 
 		}
 	  
+	 
+	 @GetMapping("/getAllUsers")
+	 public Map getAllUsers() throws Exception{
+		 
+		 List entities = new ArrayList();
+
+			List<SysUserDto> sysUserdtos = sysUserService.getAllUsers();
+
+			if (sysUserdtos != null) {
+				for (SysUserDto sysUserDto : sysUserdtos) {
+					List entity = new ArrayList<>();
+					
+					entity.add(sysUserDto.getUserFirstName());
+					entity.add(sysUserDto.getUserEmail());
+					entity.add(sysUserDto.getUserName());
+					entity.add(sysUserDto.getUserEmployeeNo());
+
+					entity.add("<button type=\"button\" class=\"btn btn-default\" id=\"" + sysUserDto.getId()
+							+ "\" onclick = \"editRole('" + sysUserDto.getId()
+							+ "')\" ><i class=\"fa fa-edit\" aria-hidden=\"true\"></i></button>");
+					
+
+					entities.add(entity);
+				}
+	 }
+			
+			Map responseMap = new HashMap();
+			responseMap.put("data", entities);
+			return responseMap;
+	 }
+	 
+	 @RequestMapping("usereditnav/{id}")
+     public ModelAndView naveditRole (@PathVariable String id) throws Exception {
+ 	context.setAttribute("path", path);
+ 	
+ 	SysUserDto sysUserDto=sysUserService.findbyUser(id);
+ 	ModelAndView mav = new ModelAndView("pages/user/edit_user");
+		
+		mav.addObject("title", "USER | EDIT USER");
+		mav.addObject("sbus", sysUserDto);
+		mav.addObject("id", id);
+		
+		return mav;
+		
+	}
+	 
+	 @GetMapping(value ="/getSelectUser/{id}")
+		public ResponseEntity<Object> getSelectedRole(@PathVariable String id ) throws Exception{
+		
+	    	System.out.println(id);
+	    	SysUserDto user=sysUserService.findbyUser(id);
+	 
+	    	
+	    	return new ResponseEntity<>(user, HttpStatus.OK);
+		}
+	 
+	 
 }

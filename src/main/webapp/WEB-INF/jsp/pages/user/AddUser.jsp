@@ -43,10 +43,9 @@
               <form id="add_User_Form" method="POST" class="col-12">
             <div class="form-group">
 					    <div class="col-xs-12">
-                <label >User Salutation</label>
+                <label >Title</label>
                  <select class="form-control select2" style="width: 100%;" id="selectedoption" name="selectedoption">
                   <option selected="selected" >Mr</option>
-                  <option>Mis</option>
                   <option>Ms</option>
                   
                 </select>

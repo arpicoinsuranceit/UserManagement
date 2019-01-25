@@ -6,6 +6,7 @@ import javax.persistence.Column;
 
 public class SysUserDto {
 
+	private String id;
 	private String userSalutation;
 	private String userFirstName;
 	private String userLastName;
@@ -20,7 +21,12 @@ public class SysUserDto {
 	private String userName;
 	private String userEmployeeNo;
 	
-	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	
 	public String getUserEmployeeNo() {
 		return userEmployeeNo;

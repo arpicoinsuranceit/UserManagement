@@ -1,6 +1,7 @@
 package com.arpico.groupit.usermanagement.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -340,6 +341,95 @@ public class SysUserSeviceImpl implements SysUserService {
 
 
 		return exsist;
+	}
+
+	@Override
+	public List<SysUserDto> getAllUsers() throws Exception {
+		
+		List<SysUserDto> getAll=new ArrayList<SysUserDto>();
+
+		List<SysUserModel> getAlSysUserModel=sysUserDao.findAllByIsEnabeled(AppConstant.ENABLE);
+		
+		
+		getAlSysUserModel.forEach(e->{
+			getAll.add(getUserDto(e));
+		});
+		
+		return getAll;
+	}
+	
+	private SysUserDto getUserDto(SysUserModel sysUserModel) {
+		
+		SysUserDto sysUserDto=new SysUserDto();
+		sysUserDto.setId(sysUserModel.getUserId());
+		sysUserDto.setUserFirstName(sysUserModel.getUserFirstName());
+		sysUserDto.setUserLastName(sysUserModel.getUserLastName());
+		sysUserDto.setUserAddress1(sysUserModel.getUserAddress1());
+		sysUserDto.setUserAddress2(sysUserModel.getUserAddress2());
+		sysUserDto.setUserAddress3(sysUserModel.getUserAddress3());
+		sysUserDto.setUserEmail(sysUserModel.getUserEmail());
+		sysUserDto.setUserEmployeeNo(sysUserModel.getUserEmployeeNo());
+		sysUserDto.setUserName(sysUserModel.getUserName());
+		
+		
+		return sysUserDto;
+	}
+
+	@Override
+	public SysUserDto findbyUser(String id) throws Exception {
+		
+		SysUserDto sysUserDto=new SysUserDto();
+		SysUserModel sysUserModel=sysUserDao.findOneByUserId(id);
+		
+		sysUserDto.setId(sysUserModel.getUserId());
+		sysUserDto.setUserFirstName(sysUserModel.getUserFirstName());
+		sysUserDto.setUserLastName(sysUserModel.getUserLastName());
+		sysUserDto.setUserAddress1(sysUserModel.getUserAddress1());
+		sysUserDto.setUserAddress2(sysUserModel.getUserAddress2());
+		sysUserDto.setUserAddress3(sysUserModel.getUserAddress3());
+		sysUserDto.setUserEmail(sysUserModel.getUserEmail());
+		sysUserDto.setUserEmployeeNo(sysUserModel.getUserEmployeeNo());
+		sysUserDto.setUserName(sysUserModel.getUserName());
+		sysUserDto.setUserPassport(sysUserModel.getUserPassport());
+		sysUserDto.setUserNic(sysUserModel.getUserNic());
+		sysUserDto.setUserTelephoneNumber(sysUserModel.getUserTelephoneNumber());
+		sysUserDto.setUserMobileNumber(sysUserModel.getUserMobileNumber());
+		
+		return sysUserDto;
+	}
+
+	@Override
+	public String updateUser(SysUserDto sysUserDto) throws Exception {
+		SysUserModel sysUserModel=new SysUserModel();
+		sysUserModel.setUserId(sysUserDto.getId());
+		sysUserModel.setUserFirstName(sysUserDto.getUserFirstName());
+		sysUserModel.setUserLastName(sysUserDto.getUserLastName());
+		sysUserModel.setUserAddress1(sysUserDto.getUserAddress1());
+		sysUserModel.setUserAddress2(sysUserDto.getUserAddress2());
+		sysUserModel.setUserAddress3(sysUserDto.getUserAddress3());
+		sysUserModel.setUserEmail(sysUserDto.getUserEmail());
+		sysUserModel.setUserCode(sysUserDto.getUserName());
+		sysUserModel.setUserMobileNumber(sysUserDto.getUserMobileNumber());
+		sysUserModel.setUserTelephoneNumber(sysUserDto.getUserMobileNumber());
+		sysUserModel.setUserName(sysUserDto.getUserName());
+		sysUserModel.setUserNic(sysUserDto.getUserNic());
+		sysUserModel.setUserPassport(sysUserDto.getUserPassport());
+		sysUserModel.setIsEnabeled(AppConstant.ENABLE);
+		sysUserModel.setUserSalutation(sysUserDto.getUserSalutation());
+		sysUserModel.setCreatedTime(new Date());
+		sysUserModel.setUserEmployeeNo(sysUserDto.getUserEmployeeNo());
+		sysUserModel.setUpdatedTime(new Date());
+		
+		sysUserDao.save(sysUserModel);
+		return "work";
+	}
+
+	@Override
+	public String deleteUser(String userid) throws Exception {
+		
+		SysUserModel sysUserModel=sysUserDao.findOne(userid);
+		sysUserModel.setIsEnabeled(0);
+		return "work";
 	}
 
 }
