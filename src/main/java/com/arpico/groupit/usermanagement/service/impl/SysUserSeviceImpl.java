@@ -136,12 +136,10 @@ public class SysUserSeviceImpl implements SysUserService {
 
 		if (val.equals("No_Val")) {
 			models = sysUserDao.findAllByIsEnabeled(1);
-			System.out.println(models);
 		} else {
 			models = sysUserDao.findAllByIsEnabeledAndUserFirstNameContaining(1, val);
 		}
 
-		System.out.println(models.size());
 
 		List<UserTokenDto> dtos = new ArrayList<>();
 
@@ -169,6 +167,8 @@ public class SysUserSeviceImpl implements SysUserService {
 		List<SysUserModel> sysUserModels = new ArrayList<>();
 		List<SubSbuModel> subSbuModels = new ArrayList<>();
 		List<MenuModel> menus = new ArrayList<>();
+		SubSbuModel subSbum=new SubSbuModel();
+		List<SysUserRoleModel> setRoles=new ArrayList<SysUserRoleModel>();
 		
 		List<SubSbuSysUserModel> subSbuSysUserModels = new ArrayList<>();
 		List<SubSbuSysUserMenuModel> subSbuSysUserMenuModels = new ArrayList<>();
@@ -177,6 +177,7 @@ public class SysUserSeviceImpl implements SysUserService {
 
 		userAssignDto.getRoles().forEach(e -> {
 			roleModels.add(roleDao.findOne(e));
+			
 		});
 
 		
@@ -202,7 +203,6 @@ public class SysUserSeviceImpl implements SysUserService {
 				
 				boolean isAvailableSubSbu = false;
 				
-				System.out.println("subSbuModels.size() : " + subSbuModels.size());
 
 				for (SubSbuModel subSbu : subSbuModels) {
 					if (roleMenu.getMenuModel().getSubSbuModel().getSubSbuId().equals(subSbu.getSubSbuId())) {
@@ -234,8 +234,6 @@ public class SysUserSeviceImpl implements SysUserService {
 		
 		subSbuSysUserModels.forEach(subSbuSysUserModel-> {
 			menus.forEach(menu-> {
-				System.out.println(subSbuSysUserModel);
-				System.out.println(menu);
 				SubSbuSysUserMenuModel sbuSysUserMenuModel = null;
 				if(sbuSysUserMenuModel == null) {
 					subSbuSysUserMenuModels.add(getSunSbuSysUserMenuModel(subSbuSysUserModel,menu));
@@ -243,25 +241,20 @@ public class SysUserSeviceImpl implements SysUserService {
 				
 			});
 		});
-		
-		
-		
 		roleModels.forEach(roleModel->{
 		sysUserModels.forEach(sysUser->{
 			sysUserRoleModel.setRoleModel(roleModel);
 			sysUserRoleModel.setSysUserModel(sysUser);
 			sysUserRoleModel.setSysUserRoleId(UUID.randomUUID().toString());
 			sysUserRoleModel.setEnabled(AppConstant.ENABLE);
+			setRoles.add(sysUserRoleModel);
 			
-			sysUserRoleDao.save(sysUserRoleModel);
 		});
 		});
-			
-		
-		
-		
+		sysUserRoleDao.save(setRoles);
 		subSbuSysUserDao.save(subSbuSysUserModels);
 		subSbuSysUserMenuDao.save(subSbuSysUserMenuModels);
+		
 		
 		return "200";
 	}
@@ -432,4 +425,17 @@ public class SysUserSeviceImpl implements SysUserService {
 		return "work";
 	}
 
+	private SubSbuModel getSubModelname(String id) {
+		
+		RoleModel rolemodel=roleDao.findOne(id);
+		
+		SubSbuModel subSbuModel=new SubSbuModel();
+		
+		List<RoleMenuModel> getRoleMenus=rolemodel.getRoleMenuModels();
+		
+		for (RoleMenuModel roleMenuModel : getRoleMenus) {
+			subSbuModel=roleMenuModel.getMenuModel().getSubSbuModel();
+		}
+		return subSbuModel;
+	}
 }

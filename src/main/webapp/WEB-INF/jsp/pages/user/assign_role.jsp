@@ -171,7 +171,7 @@
 			function getRoles(val) {
 				
 				if (val == ""){
-					val = "1";
+					val = "No_Val";
 				}
 
 				$.ajax({

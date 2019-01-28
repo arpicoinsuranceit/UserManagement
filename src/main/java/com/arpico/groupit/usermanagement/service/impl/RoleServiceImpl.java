@@ -178,7 +178,7 @@ RoleMenuModel model = new RoleMenuModel();
 		if(val.equals("No_Val")) {
 			roleModels = (List<RoleModel>) roleDao.findAll();
 		}else {
-			roleModels = (List<RoleModel>) roleDao.findAllByNameContaining(val);
+			roleModels = (List<RoleModel>) roleDao.findAllByNameContaining(val);			
 		}
 		
 		 
