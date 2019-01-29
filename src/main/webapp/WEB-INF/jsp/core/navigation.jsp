@@ -27,13 +27,17 @@
 					</a>
 						<ul class="dropdown-menu">
 							<!-- User image -->
-							<li class="user-header" style="background: #213E9A"><img
+							
+							<li class="user-header" style="background: #213E9A">
+							<img
 								src="${path}/dist/img/user2-160x160.jpg" class="img-circle"
 								alt="User Image">
-
+								
+								
 								<p>
 									USER <small> </small>
 								</p></li>
+								
 							<!-- Menu Body -->
 
 							<!-- Menu Footer-->
@@ -82,7 +86,7 @@
 								class="fa fa-circle-o"></i> All Users </a></li>
 								<li><a href="${path}/branch/navUserAssignBranch"><i
 								class="fa fa-circle-o"></i> Assign Branch </a></li>
-					</ul>
+								</ul>
 				</li>
 
 			</ul>

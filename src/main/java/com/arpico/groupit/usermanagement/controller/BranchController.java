@@ -83,7 +83,6 @@ public class BranchController {
 	
 	@GetMapping("/getAllbranch/{code}")
 	public ResponseEntity<Object> getAllBranch(@PathVariable String code) throws Exception{
-		System.out.println(code);
 		List<BranchDto> getall=branchService.getAllBranch(code);
 		
 		return new ResponseEntity<Object>(getall, HttpStatus.OK);

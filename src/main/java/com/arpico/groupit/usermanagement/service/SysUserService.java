@@ -31,4 +31,9 @@ public interface SysUserService {
 	String updateUser(SysUserDto sysUserDto)throws Exception;
 	
 	String deleteUser(String userid)throws Exception;
+	
+	String removedublicateSysUser(String id)throws Exception;
+	
+	
+	
 }

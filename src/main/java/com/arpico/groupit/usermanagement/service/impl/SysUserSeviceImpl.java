@@ -16,6 +16,7 @@ import com.arpico.groupit.usermanagement.dao.RoleDao;
 import com.arpico.groupit.usermanagement.dao.RoleMenuDao;
 import com.arpico.groupit.usermanagement.dao.SubSbuSysUserDao;
 import com.arpico.groupit.usermanagement.dao.SubSbuSysUserMenuDao;
+import com.arpico.groupit.usermanagement.dao.SysUserBranchDao;
 import com.arpico.groupit.usermanagement.dao.SysUserDao;
 import com.arpico.groupit.usermanagement.dao.SysUserRoleDao;
 import com.arpico.groupit.usermanagement.dto.MenuDto;
@@ -28,6 +29,7 @@ import com.arpico.groupit.usermanagement.model.RoleMenuModel;
 import com.arpico.groupit.usermanagement.model.RoleModel;
 import com.arpico.groupit.usermanagement.model.SubSbuModel;
 import com.arpico.groupit.usermanagement.model.SubSbuSysUserModel;
+import com.arpico.groupit.usermanagement.model.SysUserBranchModel;
 import com.arpico.groupit.usermanagement.model.SubSbuSysUserMenuModel;
 import com.arpico.groupit.usermanagement.model.SysUserModel;
 import com.arpico.groupit.usermanagement.model.SysUserRoleModel;
@@ -57,6 +59,9 @@ public class SysUserSeviceImpl implements SysUserService {
 	
 	@Autowired
 	private SysUserRoleDao sysUserRoleDao;
+	
+	@Autowired
+	private SysUserBranchDao sysUserBranchDao;
 	
 	@Override
 	public List<MenuDto> getAllByUser(String referance) throws Exception {
@@ -437,5 +442,58 @@ public class SysUserSeviceImpl implements SysUserService {
 			subSbuModel=roleMenuModel.getMenuModel().getSubSbuModel();
 		}
 		return subSbuModel;
+	}
+
+	@Override
+	public String removedublicateSysUser(String id) throws Exception {
+		SysUserModel sysUsemodel=sysUserDao.findOne(id);
+		
+		List<SysUserModel> getAll=sysUserDao.findAll();
+		
+		List<SubSbuSysUserModel> getAllSub=subSbuSysUserDao.findAll();
+		
+		List<SysUserRoleModel> getAllsysrole=sysUserRoleDao.findAll();
+		
+		List<SysUserBranchModel> getAllUserBranch=(List<SysUserBranchModel>) sysUserBranchDao.findAll();
+		
+		List<SysUserModel> getAllUsers=new ArrayList<SysUserModel>();
+		
+		List<SubSbuSysUserMenuModel> get;
+		List<SubSbuSysUserMenuModel> getmodels=(List<SubSbuSysUserMenuModel>) subSbuSysUserMenuDao.findAll();
+		
+
+		
+		getmodels.forEach(e->{
+			if(e.getSubSbuSysUser().getSysUser().getUserId().equals(sysUsemodel.getUserId())) {
+				e.setIsEnabled(0);
+			subSbuSysUserMenuDao.save(e);
+			}
+		});
+			
+		getAllSub.forEach(e->{
+			if(e.getSysUser().getUserId().equals(sysUsemodel.getUserId())) {
+				e.setIsEnabled(0);
+			}
+		});
+		
+		getAllsysrole.forEach(e->{
+				if(e.getSysUserModel().getUserId().equals(sysUsemodel.getUserId())) {
+					e.setEnabled(0);
+				}
+		
+		});
+		
+		getAllUserBranch.forEach(e->{
+			if(e.getSysUser().getUserId().equals(sysUsemodel.getUserId())) {
+				e.setBranch(null);
+				e.setSysUser(null);
+				sysUserBranchDao.delete(e.getId());
+			}
+		});
+		
+		sysUsemodel.setIsEnabeled(0);
+		sysUserDao.save(sysUsemodel);
+		
+		return "Sucsess";
 	}
 }

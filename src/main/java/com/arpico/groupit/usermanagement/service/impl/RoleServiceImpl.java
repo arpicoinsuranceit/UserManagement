@@ -71,7 +71,6 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public String save(RoleDto roleDto) throws Exception {
 		RoleModel model = getRoleModel(roleDto);
-		//SysUserModel sysUserModel=sysUserDao.findOne("018781dc-1415-4fad-b6f9-f091efc894e2");
 
 		List<RoleMenuModel> roleMenuModels = new ArrayList<>();
 
@@ -103,7 +102,7 @@ public class RoleServiceImpl implements RoleService {
 		
 		MenuModel menuModel = menuDao.findOne(e);
 		
-RoleMenuModel model = new RoleMenuModel();
+		RoleMenuModel model = new RoleMenuModel();
 		
 		List<RoleMenuModel> menuList=(List<RoleMenuModel>) roleMenuDao.findAll();
 		
@@ -303,10 +302,8 @@ RoleMenuModel model = new RoleMenuModel();
 								allSubSubSysUserMenus=subSbuSysUserModel.getSubSbuSysUserMenus();
 								subSbuSysUserModel.getSubSbuSysUserMenus().forEach(e->{
 									
-									System.out.println("md 1 "+md);
 									
 									if(e.getMenu().getMenuId()!=md) {
-										System.out.println("md 2 "+md);
 										SubSbuSysUserMenuModel getSelectsubSbuSysUserMenuModel=subSbuSysUserMenuDao.findOne(e.getSubSbuSysUserMenuId());
 										
 										if (getSelectsubSbuSysUserMenuModel.getMenu().getMenuId().equals(md)) {

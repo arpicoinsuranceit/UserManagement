@@ -84,7 +84,7 @@ public class SubSbuModel implements Serializable {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "SBU_ID", nullable = false)
+	@JoinColumn(name = "SBU_ID")
 	public SbuModel getSbu() {
 		return sbu;
 	}
@@ -221,7 +221,7 @@ public class SubSbuModel implements Serializable {
 		this.updatedBy = updatedBy;
 	}
 
-	@OneToMany(mappedBy = "subSbu", targetEntity = SubSbuSysUserModel.class)
+	@OneToMany(cascade=CascadeType.ALL)
 	public List<SubSbuSysUserModel> getSubSbuSysUsers() {
 		return subSbuSysUsers;
 	}

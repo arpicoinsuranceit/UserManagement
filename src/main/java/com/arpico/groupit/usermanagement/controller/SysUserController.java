@@ -80,7 +80,6 @@ public class SysUserController {
 	 @RequestMapping(value = "savesysuser")
 	 @ResponseBody
 		public ResponseEntity<Object> saveSysUser (@RequestBody SysUserDto sysUserDto) throws Exception {
-	    	System.out.println("Sucsesss");
 	    	
 		 	sysUserService.saveSysUser(sysUserDto);
 			
@@ -91,7 +90,6 @@ public class SysUserController {
 	 @RequestMapping(value = "updatesysuser")
 	 @ResponseBody
 		public ResponseEntity<Object> updateSysUser (@RequestBody SysUserDto sysUserDto) throws Exception {
-	    	System.out.println("Sucsesss");
 	    	
 		 	sysUserService.updateUser(sysUserDto);
 			
@@ -102,7 +100,6 @@ public class SysUserController {
 	 @GetMapping("/get_Usercode/{userName}")
 	 @ResponseBody
 	 public String searchUserCode(@PathVariable String userName) throws Exception {
-			System.out.println(userName);
 	    	return sysUserService.searchUserCode(userName); 
 		}
 	  
@@ -155,12 +152,28 @@ public class SysUserController {
 	 @GetMapping(value ="/getSelectUser/{id}")
 		public ResponseEntity<Object> getSelectedRole(@PathVariable String id ) throws Exception{
 		
-	    	System.out.println(id);
 	    	SysUserDto user=sysUserService.findbyUser(id);
 	 
 	    	
 	    	return new ResponseEntity<>(user, HttpStatus.OK);
 		}
 	 
+	 @GetMapping(value="/getUserName/{id}")
+	 public ResponseEntity<Object> removeUser(@PathVariable String id) throws Exception {
+	    	 sysUserService.removedublicateSysUser(id); 
+	    	 return new ResponseEntity<>("Sucsess", HttpStatus.OK);
+	    	 
+		}
 	 
+	 @RequestMapping("remove")
+		public ModelAndView navRemove () throws Exception {
+	    	context.setAttribute("path", path);
+			
+	    	
+	    	ModelAndView mav = new ModelAndView("pages/user/remove");
+			
+			mav.addObject("title", "USER | ALL USERS");
+			return mav;
+	 }
+	  
 }

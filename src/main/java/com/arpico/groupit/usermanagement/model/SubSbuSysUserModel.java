@@ -52,7 +52,7 @@ public class SubSbuSysUserModel {
 	}
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="SUB_SBU_ID", nullable=false)
+	@JoinColumn(name="SUB_SBU_ID")
 	public SubSbuModel getSubSbu() {
 		return subSbu;
 	}
@@ -61,7 +61,7 @@ public class SubSbuSysUserModel {
 	}
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="SYSUSER_ID", nullable=false)
+	@JoinColumn(name="SYSUSER_ID")
 	public SysUserModel getSysUser() {
 		return sysUser;
 	}

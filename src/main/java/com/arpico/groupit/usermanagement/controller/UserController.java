@@ -55,8 +55,6 @@ public class UserController {
 
    		List<UserTokenDto> userTokenDtos = sysUserService.getAll(val);
    		
-   		System.out.println(val);
-
    		return new ResponseEntity<>(userTokenDtos, HttpStatus.OK);
    	}
 
