@@ -23,9 +23,7 @@ public class SbuServiceImpl implements SbuService{
 	public List<SbuDto> getAll() throws Exception {
 		
 		List<SbuModel> models = sbuDao.findAllByIsEnabled(1);
-		
 		List<SbuDto> dtos = new ArrayList<>();
-		
 		models.forEach(e -> {
 			dtos.add(getSbuDto(e));
 		});
@@ -39,7 +37,6 @@ public class SbuServiceImpl implements SbuService{
 		dto.setSbuId(e.getSbuId());
 		dto.setSbuDescription(e.getSbuName());
 		dto.setSbuShortName(e.getSbuShortName());
-		
 		return dto;
 	}
 	

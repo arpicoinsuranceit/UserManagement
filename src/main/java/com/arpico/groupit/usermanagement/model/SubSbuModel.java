@@ -221,7 +221,7 @@ public class SubSbuModel implements Serializable {
 		this.updatedBy = updatedBy;
 	}
 
-	@OneToMany(targetEntity = SubSbuSysUserModel.class)
+	@OneToMany(mappedBy = "subSbu",targetEntity = SubSbuSysUserModel.class)
 	public List<SubSbuSysUserModel> getSubSbuSysUsers() {
 		return subSbuSysUsers;
 	}

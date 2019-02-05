@@ -28,22 +28,16 @@ public class SubSbuServiceImpl implements SubSbuService {
 	public List<SubSbuDto> getAllBuSbu(String sbu) throws Exception {
 
 		SbuModel sbuModel = sbuDao.findOne(sbu);
-
 		List<SubSbuModel> subSbuModels = subSbuDao.findAllBySbuAndIsEnabled(sbuModel, 1);
-
 		List<SubSbuDto> dtos = new ArrayList<>();
-
 		subSbuModels.forEach(e -> {
 			dtos.add(getSubSbuDto(e));
 		});
-
-		
 		return dtos;
 	}
 
 	private SubSbuDto getSubSbuDto(SubSbuModel e) {
 		SubSbuDto dto = new SubSbuDto();
-		
 		dto.setDescription(e.getSubSbuName());
 		dto.setId(e.getSubSbuId());
 		
