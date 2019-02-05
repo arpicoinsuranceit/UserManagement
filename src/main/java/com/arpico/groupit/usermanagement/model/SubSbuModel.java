@@ -221,7 +221,7 @@ public class SubSbuModel implements Serializable {
 		this.updatedBy = updatedBy;
 	}
 
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(targetEntity = SubSbuSysUserModel.class)
 	public List<SubSbuSysUserModel> getSubSbuSysUsers() {
 		return subSbuSysUsers;
 	}

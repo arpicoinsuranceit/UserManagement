@@ -71,7 +71,7 @@ public class LoginController {
 	public List<SysUserModel> getAll() throws Exception {
 		
 		return loginService.getAll();
-		//return null;
+
 	}
 
 	

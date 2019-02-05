@@ -297,9 +297,7 @@ public class SysUserSeviceImpl implements SysUserService {
 
 	@Override
 	public String saveSysUser(SysUserDto sysUserDto)  {
-		System.out.println(sysUserDto.getUserEmployeeNo());
 		
-		System.out.println(sysUserDto.getUserPassport());
 		
 		SysUserModel sysUserModel=new SysUserModel();
 		sysUserModel.setUserId(UUID.randomUUID().toString());

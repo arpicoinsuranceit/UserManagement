@@ -37,7 +37,6 @@ public class SubSbuServiceImpl implements SubSbuService {
 			dtos.add(getSubSbuDto(e));
 		});
 
-		System.out.println(dtos.size());
 		
 		return dtos;
 	}

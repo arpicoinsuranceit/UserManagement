@@ -275,7 +275,7 @@ public class SysUserModel implements Serializable{
 		this.sysUserRoleModels = sysUserRoleModels;
 	}
 
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "sysUser",targetEntity = SysUserBranchModel.class)
 	public List<SysUserBranchModel> getSysUserBranchModels() {
 		return sysUserBranchModels;
 	}

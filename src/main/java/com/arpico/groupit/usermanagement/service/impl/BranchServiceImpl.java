@@ -33,23 +33,11 @@ public class BranchServiceImpl implements BranchService{
 	@Autowired
 	private SysUserBranchDao sysUserBranchDao;
 	
+
 	
 	@Override
 	public String getBranch(String userName) throws Exception {
-//		SysUserModel sysUserModel = SysUserDao.findOneByUserCode(userName);
-//		
-//		System.out.println(userName);
-//		
-//		String branchs = "";
-//		
-//		for (SysUserBranchModel sysUserBranchModel : sysUserModel.getSysUserBranchModels()) {
-//			branchs += sysUserBranchModel.getBranch().getCode() + ",";
-//		}
-//		
-//		branchs = branchs.substring(0 , branchs.length()-1);
-//		
-//		
-//		return branchs; //sysUserModel.getBranch().getCode();
+
 		return null;
 	}
 
@@ -73,7 +61,6 @@ public class BranchServiceImpl implements BranchService{
 		
 		List<BranchDto> getalllbranchDto=new ArrayList<BranchDto>();
 		if(code.equals("No_Val")) {
-			System.out.println("set 1");
 			getAllBranch=(List<BranchModel>) branchDao.findAll();
 		}else {
 			getAllBranch=branchDao.findAllByCode(code);
@@ -96,19 +83,30 @@ public class BranchServiceImpl implements BranchService{
 		
 		List<SysUserBranchModel> getAllBranch=new ArrayList<SysUserBranchModel>(); 
 		
+		List<SysUserBranchModel> getAll=(List<SysUserBranchModel>) sysUserBranchDao.findAll();
+		
 		SysUserBranchModel sysUserBranchModel=new SysUserBranchModel();
+		
+		boolean exsist=false;
+		
+		
 		
 		for (String id  : branchAssignDto.getBranch()) {
 			for (String userid : branchAssignDto.getUsers()) {
 				BranchModel branchModel=branchDao.findOne(id);
 				SysUserModel sysUserModel=sysUserDao.findOne(userid);
-				getAllBranch.add(setSysUserBranch(sysUserModel, branchModel));
+				if (sysUserBranchDao.findOneByBranchAndSysUser(branchModel, sysUserModel)==null) {
+					getAllBranch.add(setSysUserBranch(sysUserModel, branchModel));
+					}
+			
 			}
 			
-			
 		}
+		
 		for (SysUserBranchModel sysUserBranchModels : getAllBranch) {
 			sysUserBranchDao.save(sysUserBranchModels);
+			
+			
 		}
 		
 		return "Work";
@@ -122,4 +120,5 @@ public class BranchServiceImpl implements BranchService{
 		return sysUserBranchModel;
 	}
 
+	
 }

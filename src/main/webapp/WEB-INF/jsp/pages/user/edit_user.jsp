@@ -28,10 +28,17 @@
 	<div class="wrapper">
 		<jsp:include page="../../core/navigation.jsp"></jsp:include>
 
-		<div class="content-wrapper">
+			
+			<div class="content-wrapper">
 			<section class="content-header">
-			
-			
+			<h1>
+				USER <small>EDIT USER</small>
+			</h1>
+			<ol class="breadcrumb">
+				<li><a href="#"><i class="fa fa-dashboard"></i> USER</a></li>
+				<li class="active">EDIT USER</li>
+			</ol>
+			</section>
     
          
           

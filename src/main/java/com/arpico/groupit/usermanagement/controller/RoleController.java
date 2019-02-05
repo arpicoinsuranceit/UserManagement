@@ -64,7 +64,6 @@ public class RoleController {
 		mav.addObject("title", "ROLE | ADD ROLE");
 		mav.addObject("sbus", sbuDtos);
 		
-		System.out.println(sbuDtos.size());
 		
 		return mav;
 	}
@@ -80,7 +79,6 @@ public class RoleController {
 		mav.addObject("sbus", sbuDtos);
 		mav.addObject("id", id);
 		
-		System.out.println(sbuDtos.size());
 		
 		return mav;
 		
@@ -96,14 +94,12 @@ public class RoleController {
 		mav.addObject("title", "ROLE | ALL ROLE");
 		mav.addObject("sbus", sbuDtos);
 		
-		System.out.println(sbuDtos.size());
 		
 		return mav;
 	}
     
     @GetMapping(value ="/loadMenu/{type}/{id}")
 	public ResponseEntity<Object> getSubSbus(@PathVariable String type, @PathVariable String id ) throws Exception{
-		System.out.println("loadmenu");
     	
     	List<MenuDto> list =  menuService.getMenu(type, id);
 		
@@ -113,7 +109,6 @@ public class RoleController {
     @PostMapping(value = "addrole")
     public ResponseEntity<Object> addRole(@RequestBody RoleDto roleDto) throws Exception{
 		
-    	System.out.println(roleDto.toString());
     	roleService.save(roleDto);
     	
 		return new ResponseEntity<>("Work",HttpStatus.OK);
@@ -161,9 +156,7 @@ public class RoleController {
     @GetMapping(value ="/getRoleID/{id}")
 	public ResponseEntity<Object> getSelectedRole(@PathVariable String id ) throws Exception{
 	
-    	System.out.println(id);
     	RoleDto role=roleService.getSelectedRole(id);
-    	System.out.println(role);
     	
     	return new ResponseEntity<>(role, HttpStatus.OK);
 	}
@@ -171,7 +164,6 @@ public class RoleController {
     @PostMapping(value = "editRole")
     public ResponseEntity<Object> editRole(@RequestBody RoleDto roleDto) throws Exception{
 		
-    	System.out.println("controller work");
     	roleService.edit(roleDto);
     	
 		return new ResponseEntity<>("Work",HttpStatus.OK);

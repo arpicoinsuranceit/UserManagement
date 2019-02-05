@@ -25,9 +25,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 	@Override
 	protected void additionalAuthenticationChecks(UserDetails arg0, UsernamePasswordAuthenticationToken arg1)
 			throws AuthenticationException {
-		// TODO Auto-generated method stub
-		
-	}
+		}
 
 	@Override
 	protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken)

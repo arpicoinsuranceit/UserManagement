@@ -46,7 +46,6 @@ public class BranchController {
 		String branch;
 		try {
 			branch = branchService.getBranch(userName);
-			System.out.println(branch);
 			
 			ResponseDto dto = new ResponseDto();
 			dto.setCode("200");

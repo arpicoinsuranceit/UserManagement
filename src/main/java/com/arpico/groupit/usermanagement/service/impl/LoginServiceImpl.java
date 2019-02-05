@@ -41,15 +41,13 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public LoginResponseDto isUser(String userName, String password, String subSbu) throws Exception {
 
-		System.out.println(userName);
-		System.out.println(password);
+		
 
 		LoginResponseDto responseDto = new LoginResponseDto();
 
 
 		SysUserModel sysUser = sysUserDao.findOneByUserNameAndIsEnabeled(userName, 1);
 		
-		System.out.println(sysUser.getUserId() + " sysUser.getUserId()");
 
 		if (sysUser != null) {
 			if (sysUser.getLoginModel().getPassword().equals(EncryptData.encrypt(password))) {
@@ -87,7 +85,6 @@ public class LoginServiceImpl implements LoginService {
 				
 				for (SysUserBranchModel e : sysUser.getSysUserBranchModels()) {
 				
-					System.out.println(e.getBranch().getName() + "          " +e.getBranch().getPhysical() );
 					if(e.getBranch().getPhysical().equalsIgnoreCase("1")) {
 						userTokenDto.setLocCode((e.getBranch().getCode()));
 					}
@@ -99,7 +96,6 @@ public class LoginServiceImpl implements LoginService {
 
 				loginDao.save(loginModel);
 
-				System.out.println(userTokenDto.toString());
 				
 				JwtGenerator generator = new JwtGenerator();
 				responseDto.setJwtToken(generator.generate(userTokenDto));
@@ -112,7 +108,6 @@ public class LoginServiceImpl implements LoginService {
 				
 				sysUser.getSbuSysUsers().forEach(e -> {
 
-					System.out.println("getSbuSysUsers");
 					
 					if (e.getSubSbu().equals(subSbuModel)) {
 						
@@ -164,9 +159,7 @@ public class LoginServiceImpl implements LoginService {
 			String confirmNewPassword) throws Exception {
 
 		LoginResponseDto responseDto = new LoginResponseDto();
-		System.out.println(userName);
-		System.out.println(password);
-		System.out.println(newPassword);
+	
 
 		SysUserModel sysUser = sysUserDao.findOneByUserNameAndIsEnabeled(userName, 1);// sysUserDao.findOneByUserNameAndUserPassword(userName,
 		// EncryptData.encrypt(password));
