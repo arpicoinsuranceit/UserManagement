@@ -24,4 +24,8 @@ public interface SysUserRoleDao extends JpaRepository<SysUserRoleModel, String> 
 	
 	SysUserRoleModel findByRoleModel(RoleModel roleModel)throws Exception;
 	
+	List<SysUserRoleModel> findAllBySysUserModel(SysUserModel sysUserModel)throws Exception;
+	
+	SysUserRoleModel findOneBySysUserModelAndRoleModel(SysUserModel sysuser,RoleModel role)throws Exception;
+	
  }

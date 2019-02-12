@@ -195,5 +195,7 @@ public class LoginServiceImpl implements LoginService {
 		return (List<SysUserModel>) sysUserDao.findAll();
 
 	}
+	
+	
 
 }

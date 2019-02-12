@@ -95,5 +95,20 @@ public class BranchController {
 	    	return new ResponseEntity<>("Work",HttpStatus.OK);
 		}
 	
-
+	 @GetMapping("/getAssignedBranch/{id}")
+		public ResponseEntity<Object> getAssignedBranch(@PathVariable String id) throws Exception{
+			List<BranchDto> getall=branchService.getAllAssignBranch(id);
+			System.out.println("work  "+getall);
+			return new ResponseEntity<Object>(getall, HttpStatus.OK);
+			
+		}
+	 
+	 
+	 @PostMapping("/remove")
+		public String removeBranch(@RequestBody BranchAssignDto branchAssignDto) throws Exception{
+		 		return branchService.removeBranch(branchAssignDto);
+			
+		}
+	 
+	 
 }

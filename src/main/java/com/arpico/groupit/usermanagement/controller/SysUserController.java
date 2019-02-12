@@ -18,15 +18,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.arpico.groupit.usermanagement.dto.BranchAssignDto;
 import com.arpico.groupit.usermanagement.dto.MenuDto;
 import com.arpico.groupit.usermanagement.dto.RoleDto;
 import com.arpico.groupit.usermanagement.dto.SbuDto;
 import com.arpico.groupit.usermanagement.dto.SysUserDto;
+import com.arpico.groupit.usermanagement.dto.UserAssignDto;
 import com.arpico.groupit.usermanagement.service.SysUserService;
 
 @RestController
@@ -176,4 +179,14 @@ public class SysUserController {
 			return mav;
 	 }
 	  
+	 @RequestMapping(value="/edituser",method = RequestMethod.POST)
+	 public String editUser(@RequestBody BranchAssignDto branchAssignDto) throws Exception {
+		 
+		 return sysUserService.edituser(branchAssignDto);
+	 }
+	 
+	 @RequestMapping(value="/edituserRoles",method = RequestMethod.POST)
+	 public String editUserRoles(@RequestBody UserAssignDto userAssignDto) throws Exception {
+		 return sysUserService.editUserRole(userAssignDto);
+	 }
 }

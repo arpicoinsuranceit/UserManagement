@@ -10,4 +10,6 @@ public interface SubSbuSysUserMenuDao extends CrudRepository<SubSbuSysUserMenuMo
 
 	SubSbuSysUserMenuModel findOneBySubSbuSysUserAndMenu(SubSbuSysUserModel subSbuSysUser, MenuModel menu);
 
+	
+	
 }

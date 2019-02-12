@@ -12,4 +12,8 @@ import com.arpico.groupit.usermanagement.model.SysUserModel;
 public interface SysUserBranchDao extends CrudRepository<SysUserBranchModel, String>{
 
 	SysUserBranchModel findOneByBranchAndSysUser(BranchModel branchModel,SysUserModel sysUserModel)throws Exception;
+	
+	List<SysUserBranchModel> findAllBySysUser(SysUserModel sysUserModel)throws Exception;
+	
+	List<SysUserBranchModel> findAllBySysUserAndIsEnabled(SysUserModel sysUserModel,Integer enabled)throws Exception;
 }

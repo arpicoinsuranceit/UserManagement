@@ -27,6 +27,8 @@ import com.arpico.groupit.usermanagement.dto.MenuDto;
 import com.arpico.groupit.usermanagement.dto.RoleDto;
 import com.arpico.groupit.usermanagement.dto.SbuDto;
 import com.arpico.groupit.usermanagement.dto.SubSbuDto;
+import com.arpico.groupit.usermanagement.dto.UserAssignDto;
+import com.arpico.groupit.usermanagement.model.SysUserRoleModel;
 import com.arpico.groupit.usermanagement.service.MenuService;
 import com.arpico.groupit.usermanagement.service.RoleService;
 import com.arpico.groupit.usermanagement.service.SbuService;
@@ -163,12 +165,23 @@ public class RoleController {
     
     @PostMapping(value = "editRole")
     public ResponseEntity<Object> editRole(@RequestBody RoleDto roleDto) throws Exception{
-		
-    	roleService.edit(roleDto);
-    	
-		return new ResponseEntity<>("Work",HttpStatus.OK);
+		roleService.edit(roleDto);
+    	return new ResponseEntity<>("Work",HttpStatus.OK);
 	}
     
+    
+    @GetMapping(value ="/getuserRoles/{id}")
+    public ResponseEntity<Object> getUserRoles(@PathVariable String id) throws Exception{
+    	
+    	List<RoleDto> getall=  roleService.getUserRoles(id);
+    	return new ResponseEntity<>(getall,HttpStatus.OK);
+    }
+    
+    
+    @PostMapping(value="/removeRoles")
+    public String removeRoles(@RequestBody UserAssignDto userAssignDto) throws Exception {
+    	return roleService.removerole(userAssignDto);
+    }
     
    
 }

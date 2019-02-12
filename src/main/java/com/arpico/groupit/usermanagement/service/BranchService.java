@@ -15,4 +15,7 @@ public interface BranchService {
 
 	String assignBranch(BranchAssignDto branchAssignDto)throws Exception;
 	
+	List<BranchDto> getAllAssignBranch(String id)throws Exception;
+	
+	String removeBranch(BranchAssignDto branchAssignDto)throws Exception;
 }

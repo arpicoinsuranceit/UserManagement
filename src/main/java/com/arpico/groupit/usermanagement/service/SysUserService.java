@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.dom4j.util.UserDataAttribute;
 
+import com.arpico.groupit.usermanagement.dto.BranchAssignDto;
 import com.arpico.groupit.usermanagement.dto.MenuDto;
 import com.arpico.groupit.usermanagement.dto.RoleDto;
 import com.arpico.groupit.usermanagement.dto.SysUserDto;
@@ -34,6 +35,9 @@ public interface SysUserService {
 	
 	String removedublicateSysUser(String id)throws Exception;
 	
+	String edituser(BranchAssignDto branchAssignDto)throws Exception;
+	
+	String editUserRole(UserAssignDto userAssignDto)throws Exception;
 	
 	
 }

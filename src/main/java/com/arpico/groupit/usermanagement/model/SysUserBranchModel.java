@@ -16,6 +16,7 @@ public class SysUserBranchModel {
 	private String id;
 	private BranchModel branch;
 	private SysUserModel sysUser;
+	private Integer isEnabled;
 
 	@Id
 	public String getId() {
@@ -46,4 +47,13 @@ public class SysUserBranchModel {
 		this.sysUser = sysUser;
 	}
 
+	public Integer getIsEnabled() {
+		return isEnabled;
+	}
+
+	public void setIsEnabled(Integer isEnabled) {
+		this.isEnabled = isEnabled;
+	}
+
+	
 }

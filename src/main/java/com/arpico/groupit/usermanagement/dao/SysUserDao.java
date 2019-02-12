@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.arpico.groupit.usermanagement.model.RoleMenuModel;
 import com.arpico.groupit.usermanagement.model.SysUserModel;
+import com.arpico.groupit.usermanagement.model.SysUserRoleModel;
 
 public interface SysUserDao extends JpaRepository<SysUserModel, String>{
 
@@ -23,5 +24,6 @@ public interface SysUserDao extends JpaRepository<SysUserModel, String>{
 	
 	SysUserModel findOneByUserId(String userid)throws Exception;
 		
+	
 	
 }

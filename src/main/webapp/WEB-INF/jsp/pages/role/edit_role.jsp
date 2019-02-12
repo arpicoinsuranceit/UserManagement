@@ -372,7 +372,7 @@
 	            
 	            console.log(jsonString);
 	            
-	             $.ajax({
+	              $.ajax({
 	                type: 'POST',
 	                url: '${path}/role/editRole',
 	                data: jsonString,
@@ -392,6 +392,8 @@
 	                    alert('Error');
 	                }
 	            }); 
+	            
+	            
 			});
 		</script>
 </body>

@@ -68,6 +68,7 @@ public class BranchServiceImpl implements BranchService{
 		
 		BranchDto branchDto=null;
 		for (BranchModel branchModel : getAllBranch) {
+			
 			branchDto=new BranchDto();
 			branchDto.setId(branchModel.getId());
 			branchDto.setCode(branchModel.getCode());
@@ -88,6 +89,7 @@ public class BranchServiceImpl implements BranchService{
 		SysUserBranchModel sysUserBranchModel=new SysUserBranchModel();
 		
 		boolean exsist=false;
+		
 		
 		
 		
@@ -118,6 +120,54 @@ public class BranchServiceImpl implements BranchService{
 		sysUserBranchModel.setBranch(branchModel);
 		sysUserBranchModel.setSysUser(sysUserModel);
 		return sysUserBranchModel;
+	}
+
+	@Override
+	public List<BranchDto> getAllAssignBranch(String id) throws Exception {
+		
+		SysUserModel sysUserModel=sysUserDao.findOne(id);
+		List<SysUserBranchModel> allsysUserBranchModel=sysUserBranchDao.findAllBySysUser(sysUserModel);
+		
+		List<BranchDto> getallAssignBranch=new ArrayList<BranchDto>();
+		
+		allsysUserBranchModel.forEach(e->{
+			
+			if(e.getIsEnabled()==1) {
+			
+			BranchDto branchdto=new BranchDto();
+			branchdto.setId(e.getBranch().getId());
+			branchdto.setCode(e.getBranch().getCode());
+			branchdto.setName(e.getBranch().getName());
+			
+			getallAssignBranch.add(branchdto);
+			}
+			
+		});
+		
+		
+		return getallAssignBranch;
+	}
+
+	@Override
+	public String removeBranch(BranchAssignDto branchAssignDto) throws Exception {
+		
+		SysUserModel sysuser=sysUserDao.findOne(branchAssignDto.getUserid());
+		
+		branchAssignDto.getBranch().forEach(e->{
+			BranchModel b=branchDao.findOne(e);
+			try {
+				SysUserBranchModel sys=sysUserBranchDao.findOneByBranchAndSysUser(b, sysuser);
+				System.out.println("working");
+				sys.setIsEnabled(0);
+				
+				
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			
+		});
+		
+		return "Work";
 	}
 
 	

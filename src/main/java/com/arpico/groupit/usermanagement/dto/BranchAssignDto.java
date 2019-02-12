@@ -6,6 +6,8 @@ public class BranchAssignDto {
 
 	private List<String> users;
 	private List<String> branch;
+	private SysUserDto userdto;
+	private String userid;
 	
 	public List<String> getUsers() {
 		return users;
@@ -18,6 +20,18 @@ public class BranchAssignDto {
 	}
 	public void setBranch(List<String> branch) {
 		this.branch = branch;
+	}
+	public SysUserDto getUserdto() {
+		return userdto;
+	}
+	public void setUserdto(SysUserDto userdto) {
+		this.userdto = userdto;
+	}
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 	
 	

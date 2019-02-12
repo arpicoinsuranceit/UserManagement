@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.arpico.groupit.usermanagement.dao.BranchDao;
 import com.arpico.groupit.usermanagement.dao.RoleDao;
 import com.arpico.groupit.usermanagement.dao.RoleMenuDao;
 import com.arpico.groupit.usermanagement.dao.SubSbuSysUserDao;
@@ -19,11 +20,13 @@ import com.arpico.groupit.usermanagement.dao.SubSbuSysUserMenuDao;
 import com.arpico.groupit.usermanagement.dao.SysUserBranchDao;
 import com.arpico.groupit.usermanagement.dao.SysUserDao;
 import com.arpico.groupit.usermanagement.dao.SysUserRoleDao;
+import com.arpico.groupit.usermanagement.dto.BranchAssignDto;
 import com.arpico.groupit.usermanagement.dto.MenuDto;
 import com.arpico.groupit.usermanagement.dto.RoleDto;
 import com.arpico.groupit.usermanagement.dto.SysUserDto;
 import com.arpico.groupit.usermanagement.dto.UserAssignDto;
 import com.arpico.groupit.usermanagement.dto.UserTokenDto;
+import com.arpico.groupit.usermanagement.model.BranchModel;
 import com.arpico.groupit.usermanagement.model.MenuModel;
 import com.arpico.groupit.usermanagement.model.RoleMenuModel;
 import com.arpico.groupit.usermanagement.model.RoleModel;
@@ -62,6 +65,13 @@ public class SysUserSeviceImpl implements SysUserService {
 	
 	@Autowired
 	private SysUserBranchDao sysUserBranchDao;
+	
+	@Autowired
+	private BranchDao branchDao;
+	
+	private List<SubSbuSysUserMenuModel> subSbuSysUserMenuModels = new ArrayList<>();
+	
+	private List<String> set=new ArrayList<String>();
 	
 	@Override
 	public List<MenuDto> getAllByUser(String referance) throws Exception {
@@ -181,6 +191,16 @@ public class SysUserSeviceImpl implements SysUserService {
 		SysUserRoleModel sysUserRoleModel=new SysUserRoleModel();
 
 		userAssignDto.getRoles().forEach(e -> {
+			RoleModel roleModel=roleDao.findOne(e);
+			
+			for (RoleMenuModel roleMenuModel : roleModel.getRoleMenuModels()) {
+				
+				if(roleMenuModel.getEnabled().equals(1)) {
+					
+					roleModels.add(roleMenuModel.getRoleModel());
+					menus.add(roleMenuModel.getMenuModel());
+				}
+			}
 			roleModels.add(roleDao.findOne(e));
 			
 		});
@@ -196,14 +216,17 @@ public class SysUserSeviceImpl implements SysUserService {
 
 				boolean isAvailableMenu = false;
 
-				for (MenuModel menu : menus) {
-					if (roleMenu.getMenuModel().getMenuId().equals(menu.getMenuId())) {
+				for (MenuModel menuss : menus) {
+					if (roleMenu.getMenuModel().getMenuId().equals(menuss.getMenuId()) && roleMenu.getEnabled().equals(1)) {
 						isAvailableMenu = true;
 					}
 				}
 				
 				if(!isAvailableMenu) {
-					menus.add(roleMenu.getMenuModel());
+					if(roleMenu.getEnabled().equals(1)) {
+						menus.add(roleMenu.getMenuModel());
+					}
+					
 				}
 				
 				boolean isAvailableSubSbu = false;
@@ -241,7 +264,10 @@ public class SysUserSeviceImpl implements SysUserService {
 			menus.forEach(menu-> {
 				SubSbuSysUserMenuModel sbuSysUserMenuModel = null;
 				if(sbuSysUserMenuModel == null) {
-					subSbuSysUserMenuModels.add(getSunSbuSysUserMenuModel(subSbuSysUserModel,menu));
+				
+				subSbuSysUserMenuModels.add(getSunSbuSysUserMenuModel(subSbuSysUserModel,menu));
+					
+					
 				}
 				
 			});
@@ -265,6 +291,7 @@ public class SysUserSeviceImpl implements SysUserService {
 	}
 
 	private SubSbuSysUserMenuModel getSunSbuSysUserMenuModel(SubSbuSysUserModel subSbuSysUserModel, MenuModel menu) {
+		
 		SubSbuSysUserMenuModel model = new SubSbuSysUserMenuModel();
 		model.setCreatedTime(new Date());
 		model.setIsEnabled(AppConstant.ENABLE);
@@ -297,7 +324,6 @@ public class SysUserSeviceImpl implements SysUserService {
 
 	@Override
 	public String saveSysUser(SysUserDto sysUserDto)  {
-		
 		
 		SysUserModel sysUserModel=new SysUserModel();
 		sysUserModel.setUserId(UUID.randomUUID().toString());
@@ -493,5 +519,56 @@ public class SysUserSeviceImpl implements SysUserService {
 		sysUserDao.save(sysUsemodel);
 		
 		return "Sucsess";
+	}
+
+	@Override
+	public String edituser(BranchAssignDto branchAssignDto) throws Exception {
+		SysUserModel sysuder=sysUserDao.findOne(branchAssignDto.getUserdto().getId());
+		List<SysUserBranchModel> getAllSysUserBranch=sysUserBranchDao.findAllBySysUserAndIsEnabled(sysuder, 1);
+		boolean a=false;
+		for (String branchModel : branchAssignDto.getBranch()) {
+			BranchModel branchmo=branchDao.findOne(branchModel);
+				SysUserBranchModel sysuserBranch=sysUserBranchDao.findOneByBranchAndSysUser(branchmo, sysuder);
+				if(sysuserBranch==null) {
+					System.out.println("work" + branchmo.getName());
+					SysUserBranchModel sysUserBranchModel2=new SysUserBranchModel();
+					sysUserBranchModel2.setId(UUID.randomUUID().toString());
+					sysUserBranchModel2.setBranch(branchmo);
+					sysUserBranchModel2.setIsEnabled(AppConstant.ENABLE);
+					sysUserBranchModel2.setSysUser(sysuder);
+					
+					sysUserBranchDao.save(sysUserBranchModel2);
+				}
+			}
+		
+		
+		
+		return "Work";
+	}
+
+	@Override
+	public String editUserRole(UserAssignDto userAssignDto) throws Exception {
+		SysUserModel sysuser=sysUserDao.findOne(userAssignDto.getUserid());
+		List<SysUserRoleModel> setAll=new ArrayList<SysUserRoleModel>();
+		userAssignDto.getRoles().forEach(e->{
+			RoleModel roleModel=roleDao.findOne(e);
+			try {
+				SysUserRoleModel sysUserRole=sysUserRoleDao.findOneBySysUserModelAndRoleModel(sysuser, roleModel);
+				if(sysUserRole==null) {
+					SysUserRoleModel s=new SysUserRoleModel();
+					s.setSysUserRoleId(UUID.randomUUID().toString());
+					s.setRoleModel(roleModel);
+					s.setSysUserModel(sysuser);
+					s.setEnabled(AppConstant.ENABLE);
+					setAll.add(s);
+				}
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		
+		sysUserRoleDao.save(setAll);
+		return "Work";
 	}
 }

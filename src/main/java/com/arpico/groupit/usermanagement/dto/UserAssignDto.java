@@ -6,6 +6,7 @@ public class UserAssignDto {
 
 	private List<String> roles;
 	private List<String> users;
+	private String userid;
 
 	public List<String> getRoles() {
 		return roles;
@@ -21,6 +22,16 @@ public class UserAssignDto {
 
 	public void setUsers(List<String> users) {
 		this.users = users;
+	}
+
+	
+	
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
 	@Override
