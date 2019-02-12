@@ -127,7 +127,13 @@ public class SysUserController {
 							+ "\" onclick = \"editRole('" + sysUserDto.getId()
 							+ "')\" ><i class=\"fa fa-edit\" aria-hidden=\"true\"></i></button>");
 					
-
+					
+					
+					entity.add("<button type=\"button\" class=\"btn btn-danger\"  id=\"" + sysUserDto.getId()
+					+ "\" onclick = \"removeUser('" + sysUserDto.getId()
+					+ "')\" ><i class=\"fa fa-trash\" aria-hidden=\"true\"></i>&nbsp;Delete</button>");
+					
+					
 					entities.add(entity);
 				}
 	 }
@@ -161,10 +167,10 @@ public class SysUserController {
 	    	return new ResponseEntity<>(user, HttpStatus.OK);
 		}
 	 
-	 @GetMapping(value="/getUserName/{id}")
+	 @GetMapping(value="/removeusers/{id}")
 	 public ResponseEntity<Object> removeUser(@PathVariable String id) throws Exception {
 	    	 sysUserService.removedublicateSysUser(id); 
-	    	 return new ResponseEntity<>("Sucsess", HttpStatus.OK);
+	    	 return new ResponseEntity<>("Work", HttpStatus.OK);
 	    	 
 		}
 	 

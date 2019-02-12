@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="${path}/dist/css/skins/skin-blue.css">
     <title>${title}</title>
 </head>
-<body class="hold-transition skin-blue sidebar-mini" onload="init()">
+<body class="hold-transition skin-blue sidebar-mini" >
 
 <div class="wrapper">
     <jsp:include page="../../core/navigation.jsp"></jsp:include>
@@ -60,6 +60,7 @@
                                     <th>UserCode</th>
                                     <th>Employee Number</th>
                                     <th></th>
+                                    <th></th>
                                 </tr>
                                 </thead>
 
@@ -73,6 +74,7 @@
                                     <th>User Email</th>
                                     <th>User UserCode</th>
                                     <th>User Employee Number</th>
+                                    <th></th>
                                     <th></th>
                                 </tr>
                                 </tfoot>
@@ -139,7 +141,7 @@
 
     <script type="text/javascript">
     
-    function init() {
+    
     	/* $.ajax({
     	 type: 'get',
     	  url: '${path}/sysUser/getAllUsers',
@@ -162,7 +164,27 @@
     	    });
     	     
     	
-    }
+    
+    
+    	function removeUser(id) {
+    		$.ajax({
+				type : 'get',
+				url : '${path}/sysUser/removeusers/' +id,
+				success : function(resp) {
+					if(resp=="Work"){
+                		$("#modal-success").modal("show");
+                		table.ajax.reload();
+                    }else{
+                    	alert("Error");
+                    }
+				},
+				error : function() {
+					alert('Error');
+				}
+			});
+		}
+    
+    	
    
        
         function editRole(id) {

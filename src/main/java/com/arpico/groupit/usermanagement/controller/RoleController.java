@@ -183,5 +183,8 @@ public class RoleController {
     	return roleService.removerole(userAssignDto);
     }
     
-   
+    @PostMapping(value="/removeRoleMenus")
+    public String removeRoleMenus(@RequestBody RoleDto roledto) throws Exception {
+    	return roleService.removeroleMenus(roledto);
+    }
 }

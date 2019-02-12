@@ -265,7 +265,7 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public String edit(RoleDto roleDto) {
 		
-		try {
+		
 			
 			String size="";
 			RoleModel model = getEditRoleModel(roleDto);
@@ -285,44 +285,29 @@ public class RoleServiceImpl implements RoleService {
 			
 			List<SubSbuSysUserMenuModel> allSubSubSysUserMenus=new ArrayList<SubSbuSysUserMenuModel>();
 			
-			if(roleMenuModel.size()>=allmenus.size()) {
-				size="a";
-			}else {
-				size="c";
-			}
 			
 			
-			if(size.equals("a")) {
-			for (RoleMenuModel roleMenu : roleMenuModel) {
-				for (String menu : allmenus) {
-					RoleModel role=roleDao.findOne(roleMenu.getRoleModel().getId());
-					MenuModel menumod=menuDao.findOne(menu);
-					
-					if(!roleMenu.getMenuModel().getMenuId().equals(menumod.getMenuId())) {
-					roleMenu.setEnabled(0);
-					
-					}
-				}
-			}
-			}
-		if(size.equals("c")) {
+		
+		
 			allmenus.forEach(e->{
-				roleMenuModel.forEach(e1->{
-					RoleMenuModel roles=roleMenuDao.findOne(e1.getId());
+					RoleModel roles=roleDao.findOne(roleDto.getId());
 					MenuModel menumods=menuDao.findOne(e);
-					RoleMenuModel rolem=roleMenuDao.findOneByRoleModelAndMenuModel(roles.getRoleModel(), menumods);
+					RoleMenuModel rolem=roleMenuDao.findOneByRoleModelAndMenuModel(roles, menumods);
 					if(rolem==null) {
+						System.out.println("workkkkkkkkkk");
 						MenuModel menumodels=menuDao.findOne(menumods.getMenuId());
 						RoleMenuModel roleMenumodels = new RoleMenuModel();
 						roleMenumodels.setEnabled(AppConstant.ENABLE);
 						roleMenumodels.setId(UUID.randomUUID().toString());
-						roleMenumodels.setRoleModel(roles.getRoleModel());
+						roleMenumodels.setRoleModel(roles);
 						roleMenumodels.setMenuModel(menumodels);
+						
 						rolemenuModel.add(roleMenumodels);
 						
+
 						
 						
-						roles.getRoleModel().getSysUserRoleModels().forEach(r->{
+						roles.getSysUserRoleModels().forEach(r->{
 							getAlRoleModel.add(r);
 						});
 						
@@ -332,11 +317,15 @@ public class RoleServiceImpl implements RoleService {
 							});
 						});
 						
+						try {
+							
+						
 						getAllSubSysyUser.forEach(subs->{
 							if(setSubId.isEmpty()) {
 								setSubId.add(subs.getSubSbuSysUserId());
-							}
 							
+							}
+						
 							if(!setSubId.isEmpty()) {
 								setSubId.forEach(s1->{
 									String id=subs.getSubSbuSysUserId();
@@ -357,31 +346,25 @@ public class RoleServiceImpl implements RoleService {
 								sub.setCreatedTime(new Date());
 								allSubSubSysUserMenus.add(sub);
 							});
+							System.out.println("Working");
+							//e18e8b8a-1541-4b2b-b3c2-e5bf3457a13b
 							
-							
-							roleDao.save(model);
-							roleMenuDao.save(rolemenuModel);
-							subSbuSysUserMenuDao.save(allSubSubSysUserMenus);
 						});
-						
-						
+						} catch (Exception e2) {
+							// TODO: handle exception
+						}
 						
 					}
-			
-					
-					});
-				
-			
 			});
 			
-		}
+		
 			
 	
-
-			
-		} catch (Exception e) {
-			
-		}
+			roleDao.save(model);
+			roleMenuDao.save(rolemenuModel);
+			subSbuSysUserMenuDao.save(allSubSubSysUserMenus);
+		
+		
 		return "200";
 		
 		}
@@ -432,7 +415,22 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public String removeroleMenus(RoleDto roleDto) throws Exception {
 		RoleModel role=roleDao.findOne(roleDto.getId());
-		return null;
+		
+		roleDto.getMenus().forEach(e->{
+			MenuModel m=menuDao.findOne(e);
+			RoleMenuModel roleMenu=roleMenuDao.findOneByRoleModelAndMenuModel(role, m);
+			roleMenu.setEnabled(0);
+			
+			roleMenu.getRoleModel().getSysUserRoleModels().forEach(sysRole->{
+				sysRole.getSysUserModel().getSbuSysUsers().forEach(subsysRole->{
+					subsysRole.getSubSbuSysUserMenus().forEach(submenus->{
+						SubSbuSysUserMenuModel subMenuModel=subSbuSysUserMenuDao.findOneBySubSbuSysUserAndMenu(submenus.getSubSbuSysUser(), m);
+						subMenuModel.setIsEnabled(0);
+					});
+				});
+			});
+		});
+		return "Work";
 	}
 	
 

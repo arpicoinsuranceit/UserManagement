@@ -183,6 +183,8 @@
 			</section>
 		</div>
 
+
+
 		<jsp:include page="../../core/footer.jsp"></jsp:include>
 		<jsp:include page="../../core/SuccessAdd.jsp"></jsp:include>
 
@@ -347,11 +349,42 @@
 				$("#tbody_menu_add").append(html);
 			});
 			
+			
+			
 			$("#button-removeMenu").click(function () {
+				var rid= "${id}";
+				 var menus = [];
 				$("#tbody_menu_add tr").filter(':has(:checkbox:checked)').each(function() {
-					$(this).closest("tr").remove();
+					var ids = $(this).closest("tr").find("td:nth-child(1)").text();
+					$(this).closest("tr").find("td:nth-child(1)").remove();
+					menus.push(ids);
+				});
+				
+				var roledto= {
+						menus :menus,
+						id :rid,
+						 };
+				
+				$.ajax({
+					type: 'POST',
+					url : '${path}/role/removeRoleMenus/',
+					data: JSON.stringify(roledto),
+	                contentType: "application/json",
+					success : function(resp) {
+						if(resp=="Work"){
+							$("#modal-success").modal("show");
+							getSelectedRole(); 
+	                    }else{
+	                    	alert("Error");
+	                    }
+						
+					},
+					error : function() {
+						alert('Error');
+					}
 				});
 			});
+			
 			
 			$("#button-addRole").click (function () {
 				

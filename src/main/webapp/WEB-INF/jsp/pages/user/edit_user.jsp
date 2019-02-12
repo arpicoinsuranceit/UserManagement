@@ -31,11 +31,11 @@
 		<div class="content-wrapper">
 			<section class="content-header">
 			<h1>
-				ROLE <small>EDIT ROLE</small>
+				ROLE <small>EDIT USER</small>
 			</h1>
 			<ol class="breadcrumb">
-				<li><a href="#"><i class="fa fa-dashboard"></i> ROLE</a></li>
-				<li class="active">EDIT ROLE</li>
+				<li><a href="#"><i class="fa fa-dashboard"></i> USER</a></li>
+				<li class="active">EDIT USER</li>
 			</ol>
 			</section>
 
@@ -44,7 +44,7 @@
 			<div class="box box-primary">
 
 				<div class="box-header with-border">
-					<h3 class="box-title">EDIT ROLE</h3>
+					<h3 class="box-title">EDIT USER</h3>
 				</div>
 
 				<div class="box-body">

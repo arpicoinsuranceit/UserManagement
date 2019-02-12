@@ -58,7 +58,8 @@
                                     <th>SBU</th>
                                     <th>Role Name</th>
                                     <th>Role Description</th>
-                                    <th></th>
+                                    
+                                     <th></th>
                                 </tr>
                                 </thead>
 
@@ -70,7 +71,8 @@
                                 	<th>SBU</th>
                                     <th>Role Name</th>
                                     <th>Role Description</th>
-                                    <th></th>
+                                   
+                                     <th></th>
                                 </tr>
                                 </tfoot>
                             </table>
