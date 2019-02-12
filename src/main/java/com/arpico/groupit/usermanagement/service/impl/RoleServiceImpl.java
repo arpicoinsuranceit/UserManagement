@@ -221,7 +221,7 @@ public class RoleServiceImpl implements RoleService {
 		boolean valid=false;
 		
 		for (RoleMenuModel roleMenuModel : getRollmodel) {
-			if(roleMenuModel.getMenuModel().getIsEnabled().equals(1)) {
+			if(roleMenuModel.getEnabled()==1) {
 				MenuModel menuModel=roleMenuModel.getMenuModel();
 				MenuDto menuDto=new MenuDto();
 				menuDto.setMenuId(menuModel.getMenuId());
@@ -293,7 +293,7 @@ public class RoleServiceImpl implements RoleService {
 					RoleModel roles=roleDao.findOne(roleDto.getId());
 					MenuModel menumods=menuDao.findOne(e);
 					RoleMenuModel rolem=roleMenuDao.findOneByRoleModelAndMenuModel(roles, menumods);
-					if(rolem==null) {
+					if(rolem==null && rolem.getEnabled()==1) {
 						System.out.println("workkkkkkkkkk");
 						MenuModel menumodels=menuDao.findOne(menumods.getMenuId());
 						RoleMenuModel roleMenumodels = new RoleMenuModel();
@@ -414,22 +414,37 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public String removeroleMenus(RoleDto roleDto) throws Exception {
+		System.out.println("working");
 		RoleModel role=roleDao.findOne(roleDto.getId());
-		
+		List<RoleMenuModel> getAllRoleMenus=roleMenuDao.findByRoleModelAndEnabled(role, 1);
 		roleDto.getMenus().forEach(e->{
 			MenuModel m=menuDao.findOne(e);
-			RoleMenuModel roleMenu=roleMenuDao.findOneByRoleModelAndMenuModel(role, m);
-			roleMenu.setEnabled(0);
+			System.out.println(e);
+			System.out.println(role.getId());
+			for (RoleMenuModel roleMenuModel : getAllRoleMenus) {
+				if(roleMenuModel.getMenuModel().equals(m) && roleMenuModel.getMenuModel().equals(m)) {
+					roleMenuModel.setEnabled(0);
+				}
+			}
 			
-			roleMenu.getRoleModel().getSysUserRoleModels().forEach(sysRole->{
-				sysRole.getSysUserModel().getSbuSysUsers().forEach(subsysRole->{
-					subsysRole.getSubSbuSysUserMenus().forEach(submenus->{
-						SubSbuSysUserMenuModel subMenuModel=subSbuSysUserMenuDao.findOneBySubSbuSysUserAndMenu(submenus.getSubSbuSysUser(), m);
-						subMenuModel.setIsEnabled(0);
-					});
-				});
-			});
+			
+			
+//			roleMenu.getRoleModel().getSysUserRoleModels().forEach(sysRole->{
+//				sysRole.getSysUserModel().getSbuSysUsers().forEach(subsysRole->{
+//					subsysRole.getSubSbuSysUserMenus().forEach(submenus->{
+//						SubSbuSysUserMenuModel subMenuModel=subSbuSysUserMenuDao.findOneBySubSbuSysUserAndMenuAndIsEnabled(submenus.getSubSbuSysUser(), m,1);
+//						System.out.println("Work");
+//						System.out.println(subMenuModel);
+//						if(subMenuModel!=null && subMenuModel.getIsEnabled()==1) {
+//							subMenuModel.setIsEnabled(0);
+//						}
+//						
+//					});
+//				});
+//			});
 		});
+		
+		
 		return "Work";
 	}
 	

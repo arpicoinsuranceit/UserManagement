@@ -8,7 +8,7 @@ import com.arpico.groupit.usermanagement.model.SubSbuSysUserModel;
 
 public interface SubSbuSysUserMenuDao extends CrudRepository<SubSbuSysUserMenuModel, String>{
 
-	SubSbuSysUserMenuModel findOneBySubSbuSysUserAndMenu(SubSbuSysUserModel subSbuSysUser, MenuModel menu);
+	SubSbuSysUserMenuModel findOneBySubSbuSysUserAndMenuAndIsEnabled(SubSbuSysUserModel subSbuSysUser, MenuModel menu,Integer enabled);
 
 	
 	
